@@ -6,7 +6,7 @@ require_once "Database.php";
 $database = new Database();
 
 // Datos del nuevo usuario
-$grupo = $_POST["grupo"];
+$grupo = strtoupper($_POST["grupo"]);
 
 //Validamos si existe el host antes de guardarlo
 $tablahosts = "tipos";

@@ -21,6 +21,7 @@
     <?php include 'footer.php'; ?>
 
 	<?php include 'script.php'; ?>
+  <script src="../asset/js/inicio.js" crossorigin="anonymous"></script>
 	
 </body>
 </html>

@@ -12,30 +12,18 @@
 
     <div class="container">
         <div class="content-container">
-            <form id="formClientes">
-                <input type="hidden" class="form-control" id="clientes_id" name="clientes_id" placeholder="Cliente">
-                <div class="form-row">                
-                    <div class="col-md-6 mb-3">
-                        <label for="empresa" class="form-label">Empresa <span class="priority">*<span/></label>
-                        <div class="input-group mb-3">                            
-                            <input type="text" class="form-control" id="empresa" name="empresa" required data-toggle="tooltip" data-placement="top" title="Nombre de la Empresa">
-                            <div class="input-group-append">				
-                                <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-building"></i></span>
-                            </div>
-                        </div>
-                    </div>                  
-                    <div class="col-md-6 mb-3">
-                        <label for="rtn" class="form-label">RTN <span class="priority">*<span/></label>
+            <form id="formUsuarios">
+                <div class="form-row visible" id="grupo-user">   
+                    <div class="col-md-3 mb-12">
+                        <label for="rols" class="form-label">Clientes <span class="priority">*<span/></label>			
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="rtn" name="rtn" required data-toggle="tooltip" data-placement="top" title="RTN de la Empresa">
-                            <div class="input-group-append">				
-                                <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-regular fa-id-card"></i></span>
-                            </div>
+                            <select class="selectpicker" id="clientes_id" name="clientes_id" required data-size="7" data-live-search="true" title="Clientes">			  
+                            </select>
                         </div>
-                    </div>                														
+                    </div>                                 														
                 </div>
 
-                <div class="form-row visible" id="grupo-user">   
+                <div class="form-row">   
                     <div class="col-md-6 mb-3">
                         <label for="correo_usuario">Correo <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
@@ -95,7 +83,7 @@
 		<div class="content-container-fluid">
 			<div class="card-body"> 
 				<div class="table-responsive">
-					<table id="dataTableClientes" class="table table-striped table-condensed table-hover" style="width:100%">
+					<table id="dataTableUsuarios" class="table table-striped table-condensed table-hover" style="width:100%">
 						<thead>
 							<tr>
 								<th>Empresa</th>
@@ -117,7 +105,7 @@
     <?php include 'footer.php'; ?>
 	
 	<?php include 'script.php'; ?>
-	<script src="../asset/js/clientes.js" crossorigin="anonymous"></script>
+	<script src="../asset/js/usuarios.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -13,18 +13,17 @@ $arreglo = array();
 $data = array();
 
 //Validamos si existe el host antes de guardarlo
-$tabla = "clientes_correo";
-$camposConsulta = ["clientes_correo_id", "email", "clientes_id"];
-$condicionesCorreos = ["clientes_id" => $clientes_id]; // Agregamos la condición del puerto
+$tabla = "tipos";
+$camposConsulta = ["tipos_id", "nombre"];
+$condicionesCorreos = []; // Agregamos la condición del puerto
 $resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos);
 
 if (!empty($resultadoCorreoValidar)) {
     // Llenar el array $data con los resultados
     foreach ($resultadoCorreoValidar as $row) {
         $data[] = array(
-            "clientes_id" => $row['clientes_id'],
-            "email" => $row['email'],
-            "clientes_correo_id" => $row['clientes_correo_id']
+            "tipos_id" => $row['tipos_id'],
+            "nombre" => $row['nombre']
         );
     }
 } 

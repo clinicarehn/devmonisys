@@ -10,6 +10,6 @@
             <!-- Menú dinámico se agregará aquí usando el script -->
         </ul>
     </div>
-    <!-- Enlace "Cerrar Sesión" con el mismo estilo que los elementos del menú -->
+
     <a href="#" id="cerrar-sesion" class="nav-item nav-link">Cerrar Sesión</a>
 </nav>

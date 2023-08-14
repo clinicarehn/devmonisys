@@ -210,8 +210,3 @@ var dom = "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
     "<'row'<'col-sm-12'tr>>" +
     "<'row'<'col-sm-5'i><'col-sm-7'p>>";
 //FIN VALORES PARA DATATABLE
-
-// Ocultar el mensaje después de 5 segundos (5000 milisegundos)
-setTimeout(function() {
-    $("#result").empty(); // Eliminar el contenido del elemento
-}, 5000); // 5000 milisegundos = 5 segundos  
