@@ -27,9 +27,9 @@ if (empty($resultadoHostsValidar)) {
         // Cliente registrado correctamente
         echo "success";
     } else {
-        echo "error: Error al registrar el el correo";
+        echo "error: Error al registrar el el correo $email";
     }
 } else {
-    echo "error-existe: El correo ya está registrado";
+    echo "error-existe: El correo $email, ya está registrado";
 }
 ?>

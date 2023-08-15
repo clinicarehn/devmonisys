@@ -30,6 +30,11 @@ $("#formTipo").submit(function(event) {
             } else {
                 $("#formTipo #result").html("<div class='alert alert-danger text-center'>Error al registrar el Grupo.</div>");
             }
+
+			// Ocultar el mensaje después de 5 segundos solo si la respuesta es exitosa
+			setTimeout(function() {
+				$("#formTipo #result").empty(); // Eliminar el contenido del elemento
+			}, 5000); // 5000 milisegundos = 5 segundos			
         },
         error: function() {
             $("#formTipo #result").html("<div class='alert alert-danger text-center'>Error en el servidor. Inténtalo nuevamente más tarde.</div>");
@@ -110,7 +115,6 @@ var eliminar_grupo_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
-		$('#formPuestos #puestos_id').val(data.puestos_id);
         eliminarGrupo(data.tipos_id, data.nombre);
 	});
 }

@@ -35,17 +35,29 @@
                     </div>                														
                 </div>
 
-                <div class="form-row visible" id="grupo-user">   
+                <div class="form-row visible" id="grupo-user"> 
                     <div class="col-md-6 mb-3">
-                        <label for="correo_usuario">Correo <span class="priority">*<span/></label>
+                        <label for="nombre_usuario">Usuario <span class="priority">*<span/></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required data-toggle="tooltip" data-placement="top" title="Nombre del usuario">
+                            <div class="input-group-append">				
+                            <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-user"></i></span>
+                            </div>
+                        </div>
+                    </div>                       
+                    <div class="col-md-6 mb-3">
+                        <label for="correo">Correo <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="correo" name="correo" required data-toggle="tooltip" data-placement="top" title="Correo de la Empresa, este se usara para iniciar sesión en el sistema">
                             <div class="input-group-append">				
                             <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fas fa-envelope-square"></i></span>
                             </div>
                         </div>
-                    </div>	                             
-                    <div class="col-md-3 mb-3">
+                    </div>                                														
+                </div>
+
+                <div class="form-row visible" id="grupo-user">                   	                             
+                    <div class="col-md-6 mb-3">
                         <label for="contrasena" class="form-label">Contraseña</label>
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="contrasena" name="contrasena" required data-toggle="tooltip" data-placement="top" title="La contraseña debe ser menor a 8 caracteres">
@@ -61,7 +73,7 @@
                             </select>
                         </div>
                     </div>                                 														
-                </div>
+                </div>                
 
                 <div class="form-row">   
                         <div class="col-md-6 mb-3">

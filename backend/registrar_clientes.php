@@ -9,6 +9,7 @@ $database = new Database();
 $empresa = $_POST["empresa"];
 $rtn = $_POST["rtn"];
 $email = $_POST["email"];
+$nombre_usuario = $_POST["nombre_usuario"];
 $pass = $_POST["pass"];
 $estado = $_POST["estado"];
 $rols = $_POST["rols"];
@@ -43,9 +44,9 @@ if (isset($_POST['submitType'])) {
         
                     // Insertar el nuevo usuario en la tabla "usuarios"
                     $tablaUsuarios = "usuarios";
-                    $camposUsuarios = ["usuarios_id", "clientes_id", "email", "pass", "rols_id", "estado", "date_create"];
+                    $camposUsuarios = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "estado", "date_create"];
                     $campoCorrelativoUsuarios = "usuarios_id";
-                    $valoresUsuarios = [$database->obtenerCorrelativo($tablaUsuarios, $campoCorrelativoUsuarios), $clientes_id, $email, $hashedPass, $rols, $estado, date("y-m-d h:m:s")];
+                    $valoresUsuarios = [$database->obtenerCorrelativo($tablaUsuarios, $campoCorrelativoUsuarios), $clientes_id, $nombre_usuario, $email, $hashedPass, $rols, $estado, date("y-m-d h:m:s")];
         
                     // Insertar el nuevo usuario en la tabla "usuarios"
                     $database->insertarRegistro($tablaUsuarios, $camposUsuarios, $valoresUsuarios);
@@ -54,10 +55,10 @@ if (isset($_POST['submitType'])) {
                 // Cliente registrado correctamente
                 echo "success";
             } else {
-                echo "error: Error al registrar el cliente";
+                echo "error: Error al registrar el cliente $empresa con el rtn $rtn";
             }
         } else {
-            echo "error-existe: El cliente ya está registrado";
+            echo "error-existe: El cliente $empresa con el rtn $rtn, ya está registrado";
         }
 
     } elseif ($submitType === "modificar") {//Edamos los valores
@@ -78,7 +79,7 @@ if (isset($_POST['submitType'])) {
             if ($database->actualizarRegistros($tabla, $datos_actualizar, $condiciones_actualizar)) {
                 echo "success";
             } else {
-                echo "error: Error al modificar el cliente";
+                echo "error: Error al modificar el cliente $empresa con el rtn $rtn";
             } 
         }else{
             $datos_actualizar = ['empresa' => $empresa, 'rtn' => $rtn, 'estado' => $estado];
@@ -93,10 +94,10 @@ if (isset($_POST['submitType'])) {
                 if ($database->actualizarRegistros($tabla, $datos_actualizar, $condiciones_actualizar)) {
                     echo "success";
                 } else {
-                    echo "error: Error al modificar el cliente";
+                    echo "error: Error al modificar el cliente $empresa con el rtn $rtn";
                 } 
             }else{
-                echo "error-existe: lo sentimos este rtn $tn ya esta registrado";
+                echo "error-existe: lo sentimos este rtn $rtn ya esta registrado";
             }           
         }
     }

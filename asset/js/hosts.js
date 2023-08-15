@@ -59,6 +59,11 @@ $("#formHosts").submit(function(event) {
 					$("#formHosts #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");
 				}
 			}
+
+			// Ocultar el mensaje después de 5 segundos solo si la respuesta es exitosa
+			setTimeout(function() {
+				$("#formHosts #result").empty(); // Eliminar el contenido del elemento
+			}, 5000); // 5000 milisegundos = 5 segundos			
         },
         error: function() {
             $("#formHosts #result").html("<div class='alert alert-danger text-center'>Error en el servidor. Inténtalo nuevamente más tarde.</div>");
@@ -187,8 +192,6 @@ var eliminar_hosts_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
-		var url = '<?php echo SERVERURL;?>core/editarPuestos.php';
-		$('#formHosts #puestos_id').val(data.puestos_id);
         eliminarCorre(data.hosts_id, data.host);
 	});
 }

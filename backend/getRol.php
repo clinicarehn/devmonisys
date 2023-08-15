@@ -5,6 +5,10 @@ require_once "Database.php";
 // Creamos una instancia de la clase Database
 $database = new Database();
 
+// Inicia la sesión
+session_start();
+$usuario_rol = $_SESSION['rol'];
+
 $tablaTipos = "rols";
 $camposTipos = ["rols_id", "nombre"];
 $condicionesTipos = [];
@@ -17,9 +21,11 @@ if (!empty($resultadoTipos)) {
         $rols_id = $row['rols_id'];
         $nombre = $row['nombre'];
         
-        // Verificar si el rol es "superadmin" y si no, omitirlo
-        if ($nombre === "superadmin") {
-            continue;
+        if($usuario_rol != "superadmin"){
+            // Verificar si el rol es "superadmin" y si no, omitirlo
+            if ($nombre === "superadmin") {
+                continue;
+            }
         }
         
         // Agregar la opción al string de opciones

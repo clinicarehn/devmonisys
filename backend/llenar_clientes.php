@@ -14,8 +14,8 @@ $data = array();
 
 //Validamos si existe el host antes de guardarlo
 $tabla = "clientes";
-$camposConsulta = ["clientes_id ", "empresa", "rtn", "estado"];
-$condicionesCorreos = []; // Agregamos la condición del puerto
+$camposConsulta = ["clientes_id", "empresa", "rtn", "estado"];
+$condicionesCorreos = ["estado" => "1"]; // Agregamos la condición del puerto
 $resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos);
 
 if (!empty($resultadoCorreoValidar)) {

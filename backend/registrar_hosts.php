@@ -5,6 +5,10 @@ require_once "Database.php";
 // Creamos una instancia de la clase Database
 $database = new Database();
 
+// Inicia la sesión
+session_start();
+$usuario_rol = $_SESSION['rol'];
+
 // Datos del nuevo usuario
 $host = strtoupper($_POST["host"]);
 $ip = $_POST["ip"];
@@ -12,7 +16,7 @@ $port = $_POST["port"];
 $ubicacion = $_POST["ubicacion"];
 $tipo = $_POST["tipo"];
 $estado = $_POST["estado"];
-$clientes_id = "1";
+$clientes_id = $_SESSION['clientes_id'];
 
 if (isset($_POST['submitType'])) {
     $submitType = $_POST['submitType'];
@@ -34,10 +38,10 @@ if (isset($_POST['submitType'])) {
                 // Cliente registrado correctamente
                 echo "success";
             } else {
-                echo "error: Error al registrar el la host";
+                echo "error: Error al registrar el la Host $host con la IP $ip y el puerto $port";
             }
         } else {
-            echo "error-existe: El host ya está registrado";
+            echo "error-existe: El Host $host con la IP $ip y el puerto $port, ya estan registrado";
         }
 
     } elseif ($submitType === "modificar") {//Modificamos los valores
@@ -59,7 +63,7 @@ if (isset($_POST['submitType'])) {
             if ($database->actualizarRegistros($tabla, $datos_actualizar, $condiciones_actualizar)) {
                 echo "success";
             } else {
-                echo "error: Error al modificar el hosts";
+                echo "error: Error al modificar el Hosts $host con la IP $ip y el puerto $port";
             } 
         }else{
             $camposHosts_ = ["hosts_id", "host", "port"];
@@ -74,7 +78,7 @@ if (isset($_POST['submitType'])) {
                 if ($database->actualizarRegistros($tabla, $datos_actualizar, $condiciones_actualizar)) {
                     echo "success";
                 } else {
-                    echo "error: Error al modificar el hosts";
+                    echo "error: Error al modificar el Host $host con la IP $ip y el puerto $port";
                 } 
             }else{
                 echo "error-existe: lo sentimos esta IP $ip con el Puerto $port ya estan registrado";

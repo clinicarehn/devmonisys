@@ -33,6 +33,11 @@ $("#formCorreos").submit(function(event) {
                 $("#formCorreos #result").html("<div class='alert alert-danger text-center'>Error al registrar el correo.</div>");
                 $("#formCorreos #email").focus();
             }
+
+			// Ocultar el mensaje después de 5 segundos solo si la respuesta es exitosa
+			setTimeout(function() {
+				$("#formCorreos #result").empty(); // Eliminar el contenido del elemento
+			}, 5000); // 5000 milisegundos = 5 segundos			
         },
         error: function() {
             $("#formCorreos #result").html("<div class='alert alert-danger text-center'>Error en el servidor. Inténtalo nuevamente más tarde.</div>");
@@ -112,7 +117,6 @@ var eliminar_correo_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
-		$('#formCorreos #clientes_correo_id').val(data.clientes_correo_id);
         eliminarCorreo(data.email, data.clientes_id);
 	});
 }

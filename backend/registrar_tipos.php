@@ -24,9 +24,9 @@ if (empty($resultadoHostsValidar)) {
         // Cliente registrado correctamente
         echo "success";
     } else {
-        echo "error: Error al registrar el el grupo";
+        echo "error: Error al registrar el el grupo $grupo";
     }
 } else {
-    echo "error-existe: El grupo ya está registrado";
+    echo "error-existe: El grupo $grupo, ya está registrado";
 }
 ?>

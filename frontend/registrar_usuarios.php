@@ -13,6 +13,7 @@
     <div class="container">
         <div class="content-container">
             <form id="formUsuarios">
+                <input type="hidden" class="form-control" id="usuarios_id" name="usuarios_id">
                 <div class="form-row visible" id="grupo-user">   
                     <div class="col-md-3 mb-12">
                         <label for="rols" class="form-label">Clientes <span class="priority">*<span/></label>			
@@ -52,6 +53,18 @@
                 </div>
 
                 <div class="form-row">   
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre">Nombre <span class="priority">*<span/></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="nombre" name="nombre" required data-toggle="tooltip" data-placement="top" title="Es el nombre del usuario">
+                            <div class="input-group-append">				
+                            <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-user"></i></span>
+                            </div>
+                        </div>
+                    </div>                                														
+                </div>                
+
+                <div class="form-row">   
                         <div class="col-md-6 mb-3">
                         <label class="form-label">Estado <span class="priority">*<span/></label>
                         <div class="form-check">
@@ -87,7 +100,10 @@
 						<thead>
 							<tr>
 								<th>Empresa</th>
-								<th>RTN</th>
+                                <th>Usuario</th>
+								<th>Correo</th>           
+								<th>Rol</th>
+                                <th>Resetear</th>
 								<th>Editar</th>
 								<th>Eliminar</th>													
 							</tr>

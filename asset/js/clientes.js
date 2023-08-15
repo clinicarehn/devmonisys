@@ -9,6 +9,7 @@ $("#formClientes").submit(function(event) {
     var clientes_id = $("#formClientes #clientes_id").val();
 	var empresa = $("#formClientes #empresa").val();
     var rtn = $("#formClientes #rtn").val();
+	var nombre_usuario = $("#formClientes #nombre_usuario").val(); 
     var email = $("#formClientes #correo").val();
     var pass = $("#formClientes #contrasena").val(); 
     var rols = $("#formClientes #rols").val(); 
@@ -37,6 +38,7 @@ $("#formClientes").submit(function(event) {
             clientes_id: clientes_id,
 			empresa: empresa,
             rtn: rtn,
+			nombre_usuario: nombre_usuario,
             email: email,
             pass: pass ,
             estado: estado,
@@ -75,6 +77,11 @@ $("#formClientes").submit(function(event) {
 					$("#formClientes #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");
 				}
             }
+
+			// Ocultar el mensaje después de 5 segundos solo si la respuesta es exitosa
+			setTimeout(function() {
+				$("#formClientes #result").empty(); // Eliminar el contenido del elemento
+			}, 5000); // 5000 milisegundos = 5 segundos			
         },
         error: function() {
             $("#formClientes #result").html("<div class='alert alert-danger text-center'>Error en el servidor. Inténtalo nuevamente más tarde.</div>");
@@ -213,7 +220,6 @@ var eliminar_clientes_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
-
         eliminarCorre(data.clientes_id, data.empresa);
 	});
 }
@@ -253,7 +259,7 @@ function deleteEmail(clientes_id, empresa) {
                     confirmButtonClass: "btn-primary",
                     timer: 3000,
                 });
-                listar_correos();
+                listar_clientes();
             }else if (response.startsWith("error-existe: ")) {
 				var errorMessage = response.substring(13);
                 swal({
