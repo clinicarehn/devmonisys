@@ -32,7 +32,6 @@ if (!empty($resultadoHostValidar)) {
             $cliente = $resultadoClientes[0]['empresa'];
         }
 
-
         //COSULTAMOS EL NOMBRE DEL GRUPO
         $tablaGrupos = "tipos";
         $camposConsultaGrupos = ["nombre"];

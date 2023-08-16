@@ -1,8 +1,8 @@
 $(document).ready(function() { 
   // Definir menuItems fuera de las funciones
   var menuItems = {
-    "superadmin": ["inicio", "registrar_clientes", "registrar_correos", "registrar_hosts", "registrar_tipos", "registrar_usuarios"],
-    "admin": ["inicio", "registrar_correos", "registrar_hosts", "registrar_usuarios"],
+    "superadmin": ["inicio", "registrar_clientes", "registrar_correos", "registrar_hosts", "registrar_tipos", "registrar_usuarios", "historial"],
+    "admin": ["inicio", "registrar_correos", "registrar_hosts", "registrar_usuarios", "historial"],
     "user": ["inicio"]
   };
 

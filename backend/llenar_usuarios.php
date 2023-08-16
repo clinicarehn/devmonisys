@@ -24,7 +24,10 @@ if (!empty($resultadoCorreoValidar)) {
         $camposConsultaClientes = ["empresa"];
         $condicionesClientes = ["clientes_id" => $row['clientes_id']]; // Agregamos la condición del puerto
         $resultadoClientesValidar = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes);
-        $empresa_consulta = $resultadoClientesValidar[0]['empresa'];
+
+        if (!empty($resultadoClientesValidar)) {
+            $empresa_consulta = $resultadoClientesValidar[0]['empresa'];
+        }
 
         $tablaRols = "rols";
         $camposConsultaRols = ["nombre"];

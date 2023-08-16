@@ -68,6 +68,8 @@
 
 /* Estilos para el contenedor principal */
 .container {
+  max-width: 1500px; /* Ajusta este valor según lo deseado */
+  width: 100%;
   padding: 100px 10px 30px; /* Espacio para el encabezado */
   display: flex;
   flex-direction: column;
@@ -276,4 +278,12 @@
 .visible {
   visibility: visible;
   position: static;
+}
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+  z-index: 1;
 }

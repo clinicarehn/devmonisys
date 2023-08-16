@@ -68,7 +68,8 @@ if (isset($_POST['submitType'])) {
         }else{
             $camposHosts_ = ["hosts_id", "host", "port"];
             $datos_actualizar = ['nombre' => $host, 'ubicacion' => $ubicacion, 'estado' => $estado, 'host' => $ip, 'port' => $port, 'tipos_id' => $tipo];
-
+            $condiciones_actualizar = ["hosts_id" => $hosts_id];
+            
             //Validamos si la IP y el port no existen antes de guardar
             $condicionesHostsNueva = ["host" => $ip, "port" => $port];
             $resultadoHosts = $database->consultarTabla($tabla, $camposHosts_, $condicionesHostsNueva);
