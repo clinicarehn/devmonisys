@@ -18,7 +18,7 @@ class Database {
     $this->conexion->close();
   }
   
-  public function obtenerEstados() {
+  public function obtenerEstados($clientes_id) {
     $query = "SELECT h.hosts_id, h.nombre, 
         CASE
             WHEN h.estado = 1 THEN 'up'    
@@ -27,7 +27,8 @@ class Database {
         t.nombre AS 'tipo' 
         FROM hosts AS h
         INNER JOIN tipos AS t
-        ON h.tipos_id = t.tipos_id";
+        ON h.tipos_id = t.tipos_id
+        WHERE clientes_id = '$clientes_id'";
     //AQUI HACEMOS EL WHERE PARA SOLO MOSTRAR LOS DATOS DEL CLIENTE QUE INICIO SESION
     
     $result = $this->conexion->query($query);
@@ -90,6 +91,7 @@ class Database {
             }
             $query .= " WHERE " . implode(" AND ", $clauses); // Concatenar las condiciones usando AND
         }
+
         // Ejecutar la consulta
         $result = $this->conexion->query($query);
 

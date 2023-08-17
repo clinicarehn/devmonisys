@@ -5,8 +5,12 @@ require_once "Database.php";
 // Creamos una instancia de la clase Database
 $database = new Database();
 
+// Inicia la sesión
+session_start();
+$clientes_id = $_SESSION['clientes_id'];
+
 // Obtenemos los estados de los hosts desde la base de datos
-$hosts = $database->obtenerEstados();
+$hosts = $database->obtenerEstados($clientes_id);
 
 // Agrupar los hosts por tipo
 $hosts_por_tipo = array();

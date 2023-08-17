@@ -7,6 +7,7 @@ $database = new Database();
 
 // Inicia la sesión
 session_start();
+$clientes_id_inicio = $_SESSION['clientes_id'];
 
 $arreglo = array();
 $data = array();
@@ -14,7 +15,8 @@ $data = array();
 //Validamos si existe el host antes de guardarlo
 $tabla = "usuarios";
 $camposConsulta = ["usuarios_id", "clientes_id", "nombre", "email", "rols_id", "estado"];
-$condicionesCorreos = ["estado" => "1"]; // Agregamos la condición del puerto
+$condicionesCorreos = ["clientes_id" => $clientes_id_inicio];
+
 $resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos);
 
 if (!empty($resultadoCorreoValidar)) {

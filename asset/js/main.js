@@ -1,3 +1,23 @@
+window.onload = function() {
+    getImagenHeader();
+};
+
+function getImagenHeader(){
+    // Obtener la URL de la imagen usando Ajax
+    $.ajax({
+        type: "GET",
+        url: "../backend/get_image.php", // Ruta al archivo PHP
+        success: function(imageUrl) {
+            // Actualizar la imagen en la barra de navegación
+            var logoElement = $(".logo"); // Cambiar por el selector correcto
+            logoElement.attr("src", imageUrl);
+        },
+        error: function() {
+            console.error("Error al obtener la URL de la imagen");
+        }
+    });    
+}
+
 //INICIO FUNCIONES ADICIONALES
 function convertDateFormat(string) {
     if(string == null || string == ""){

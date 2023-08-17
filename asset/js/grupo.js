@@ -115,6 +115,7 @@ var eliminar_grupo_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
+		$("#formPuestos #result").empty();
         eliminarGrupo(data.tipos_id, data.nombre);
 	});
 }

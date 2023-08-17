@@ -178,6 +178,7 @@ var resetear_usuario_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_resetear");
 	$(tbody).on("click", "button.table_resetear", function(){
 		var data = table.row( $(this).parents("tr") ).data();
+		$("#formUsuarios #result").empty();
         resetearContraseña(data.usuarios_id, data.nombre);
 	});
 }
@@ -255,6 +256,7 @@ var editar_usuario_dataTable = function(tbody, table){
 		$('#btnRegistroEdit').show();			
 		$('#formUsuarios')[0].reset();
 		$("#formUsuarios #contrasena").prop("disabled", true);
+		$("#formUsuarios #result").empty();
 		
 		var data = table.row( $(this).parents("tr") ).data();
 		var url = '../backend/editar_users.php';
@@ -289,6 +291,7 @@ var eliminar_usuario_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
+		$("#formUsuarios #result").empty();
         eliminarUsuario(data.usuarios_id, data.nombre);
 	});
 }

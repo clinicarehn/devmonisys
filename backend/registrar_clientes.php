@@ -19,9 +19,8 @@ if (isset($_POST['submitType'])) {
     
     if ($submitType === "registrar") {//Registramos los valores
         $tabla = "clientes";
-        $campos = ["clientes_id", "empresa", "rtn", "estado", "date_create"];
-        $campoCorrelativo = "clientes_id";
-        $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $rtn, $estado, date("y-m-d h:m:s")]; // Los valores correspondientes
+        $campos = ["clientes_id", "empresa", "rtn", "image", "estado", "date_create"];
+        $campoCorrelativo = "clientes_id";        
         
         // Validamos si el cliente ya existe
         $tablaClientes = "clientes";
@@ -30,6 +29,29 @@ if (isset($_POST['submitType'])) {
         $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes);
         
         if (empty($resultadoClientes)) {
+            // Manejo del archivo subido
+
+            $imageFilename = "";
+
+            if (isset($_FILES["imagen"]["error"])) {
+                if ($_FILES["imagen"]["error"] === UPLOAD_ERR_OK) {
+                    // Obtener información del archivo subido
+                    $imageFilename = $_FILES["imagen"]["name"];
+                    $imageTmpPath = $_FILES["imagen"]["tmp_name"];
+    
+                    // Construir la ruta donde se guardará la imagen
+                    $clientes_id = $database->obtenerCorrelativo($tabla, $campoCorrelativo);
+                    $imageFilename = "logo_".$clientes_id.".png";
+                    $imagePath = "../img/logos/".$imageFilename;
+    
+                    if (!file_exists($imagePath)) {
+                        move_uploaded_file($_FILES["imagen"]["tmp_name"], $imagePath);
+                    }   
+                }   
+            }        
+
+            $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $rtn, $imageFilename, $estado, date("y-m-d h:m:s")]; // Los valores correspondientes
+
             // Registramos el Cliente
             if ($database->insertarRegistro($tabla, $campos, $valores)) {
                 // Verificar si el cliente ya está registrado
@@ -48,8 +70,17 @@ if (isset($_POST['submitType'])) {
                     $campoCorrelativoUsuarios = "usuarios_id";
                     $valoresUsuarios = [$database->obtenerCorrelativo($tablaUsuarios, $campoCorrelativoUsuarios), $clientes_id, $nombre_usuario, $email, $hashedPass, $rols, $estado, date("y-m-d h:m:s")];
         
-                    // Insertar el nuevo usuario en la tabla "usuarios"
-                    $database->insertarRegistro($tablaUsuarios, $camposUsuarios, $valoresUsuarios);
+                    //VALIDAMOS SI EL CORREO NO EXISTE
+        // Validamos si el cliente ya existe
+                    $tablaUsuariosValidar = "usuarios";
+                    $camposUsuariosValidar = ["usuarios_id"];
+                    $condicioneUsuariosValidar = ["email" => $email];
+                    $resultadoUsuariosValidar = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes);                    
+
+                    if (empty($resultadoUsuariosValidar)) {
+                        // Insertar el nuevo usuario en la tabla "usuarios"
+                        $database->insertarRegistro($tablaUsuarios, $camposUsuarios, $valoresUsuarios);
+                    }
                 }
                       
                 // Cliente registrado correctamente
@@ -63,16 +94,42 @@ if (isset($_POST['submitType'])) {
 
     } elseif ($submitType === "modificar") {//Edamos los valores
         $clientes_id = $_POST["clientes_id"];
+        $imageFilename = "";
+
+        if (isset($_FILES["imagen"]["error"])){
+            if ($_FILES["imagen"]["error"] === UPLOAD_ERR_OK) {
+                // Obtener información del archivo subido
+                $imageFilename = $_FILES["imagen"]["name"];
+                $imageTmpPath = $_FILES["imagen"]["tmp_name"];
+    
+                // Construir la ruta donde se guardará la imagen
+                $imageFilename = "logo_".$clientes_id.".png";
+                $imagePath = "../img/logos/".$imageFilename;
+    
+                if (file_exists($imagePath)) {
+                    // Eliminar la imagen anterior si existe
+                    unlink($imagePath);
+                }
+
+                if (!file_exists($imagePath)) {
+                    move_uploaded_file($_FILES["imagen"]["tmp_name"], $imagePath);
+                }   
+            }
+        }
 
         //CONSULTAMOS EL RTN DEL CLIENTE
         $tabla = "clientes";
-        $camposClientes = ["clientes_id", "rtn"];
+        $camposClientes = ["clientes_id", "rtn", "image"];
         $condicionesClientes_ = ["clientes_id" => $clientes_id];
         $resultadoClientes_ = $database->consultarTabla($tabla, $camposClientes, $condicionesClientes_);
         $rtn_consulta = $resultadoClientes_[0]['rtn'];
 
+        if($imageFilename === "") {
+            $imageFilename = $resultadoClientes_[0]['image'];
+        }
+
         if($rtn === $rtn_consulta){
-            $datos_actualizar = ['empresa' => $empresa, 'estado' => $estado];
+            $datos_actualizar = ['empresa' => $empresa, 'estado' => $estado, 'image' => $imageFilename];
             $condiciones_actualizar = ["clientes_id" => $clientes_id];
         
             // Llamar a la función para actualizar los registros
@@ -82,7 +139,7 @@ if (isset($_POST['submitType'])) {
                 echo "error: Error al modificar el cliente $empresa con el rtn $rtn";
             } 
         }else{
-            $datos_actualizar = ['empresa' => $empresa, 'rtn' => $rtn, 'estado' => $estado];
+            $datos_actualizar = ['empresa' => $empresa, 'rtn' => $rtn, 'estado' => $estado, 'image' => $imageFilename];
             $condiciones_actualizar = ["clientes_id" => $clientes_id];
 
             //VALIDAMOS SI EL RTN NO EXISTE ANTES DE GUARDARLO

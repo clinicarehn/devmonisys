@@ -15,7 +15,7 @@
             <form id="formClientes">
                 <input type="hidden" class="form-control" id="clientes_id" name="clientes_id" placeholder="Cliente">
                 <div class="form-row">                
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="empresa" class="form-label">Empresa <span class="priority">*<span/></label>
                         <div class="input-group mb-3">                            
                             <input type="text" class="form-control" id="empresa" name="empresa" required data-toggle="tooltip" data-placement="top" title="Nombre de la Empresa">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>                  
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="rtn" class="form-label">RTN <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="rtn" name="rtn" required data-toggle="tooltip" data-placement="top" title="RTN de la Empresa">
@@ -32,11 +32,19 @@
                                 <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-regular fa-id-card"></i></span>
                             </div>
                         </div>
-                    </div>                														
+                    </div>  
+                    <div class="col-md-4 mb-3">
+                        <label for="imagen" class="form-label">Logo</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="imagen" name="imagen" accept=".png">
+                            <label class="custom-file-label" for="imagen" id="imagenLabel">Seleccione una imágen en formato png</label>
+                        </div>
+                        <div class="invalid-feedback">Por favor, seleccione una imágen en formato png.</div>
+                    </div>                                   														
                 </div>
 
                 <div class="form-row visible" id="grupo-user"> 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="nombre_usuario">Usuario <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required data-toggle="tooltip" data-placement="top" title="Nombre del usuario">
@@ -45,7 +53,7 @@
                             </div>
                         </div>
                     </div>                       
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="correo">Correo <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="correo" name="correo" required data-toggle="tooltip" data-placement="top" title="Correo de la Empresa, este se usara para iniciar sesión en el sistema">
@@ -53,11 +61,8 @@
                             <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fas fa-envelope-square"></i></span>
                             </div>
                         </div>
-                    </div>                                														
-                </div>
-
-                <div class="form-row visible" id="grupo-user">                   	                             
-                    <div class="col-md-6 mb-3">
+                    </div>
+                    <div class="col-md-4 mb-3">
                         <label for="contrasena" class="form-label">Contraseña</label>
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="contrasena" name="contrasena" required data-toggle="tooltip" data-placement="top" title="La contraseña debe ser menor a 8 caracteres">
@@ -65,15 +70,18 @@
                                 <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-lock"></i></span>
                             </div>
                         </div>
-                    </div> 
-                    <div class="col-md-3 mb-3">
+                    </div>                                                     														
+                </div>
+
+                <div class="form-row visible" id="grupo-user">
+                    <div class="col-md-4 mb-3">
                         <label for="rols" class="form-label">Rol</label>			
                         <div class="input-group mb-3">
                             <select class="selectpicker" id="rols" name="rols" required data-size="7" data-live-search="true" title="Rol">			  
                             </select>
                         </div>
-                    </div>                                 														
-                </div>                
+                    </div>                                                                        														
+                </div>                              
 
                 <div class="form-row">   
                         <div class="col-md-6 mb-3">

@@ -15,7 +15,7 @@ $data = array();
 //Validamos si existe el host antes de guardarlo
 $tabla = "hosts";
 $camposConsulta = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id"];
-$condicioneshosts = [];
+$condicioneshosts = ["clientes_id " => $clientes_id];
 $resultadoHostValidar = $database->consultarTabla($tabla, $camposConsulta, $condicioneshosts);
 
 if (!empty($resultadoHostValidar)) {

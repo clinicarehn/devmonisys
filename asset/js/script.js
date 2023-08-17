@@ -1,8 +1,8 @@
 $(document).ready(function() { 
   // Definir menuItems fuera de las funciones
   var menuItems = {
-    "superadmin": ["inicio", "registrar_clientes", "registrar_correos", "registrar_hosts", "registrar_tipos", "registrar_usuarios", "historial"],
-    "admin": ["inicio", "registrar_correos", "registrar_hosts", "registrar_usuarios", "historial"],
+    "superadmin": ["inicio", "registrar_clientes", "registrar_correos", "registrar_hosts", "registrar_tipos", "registrar_usuarios", "historial", "profile"],
+    "admin": ["inicio", "registrar_correos", "registrar_hosts", "registrar_usuarios", "historial", "profile"],
     "user": ["inicio"]
   };
 
@@ -71,6 +71,25 @@ $(document).ready(function() {
 
   // Agrega un evento al botón de "Cerrar Sesión"
   $("#cerrar-sesion").click(function () {
+    // Muestra un cuadro de diálogo modal para confirmar el cierre de sesión
+		swal({
+        title: "¿Esta seguro?",
+        text: "Salir del sistema",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "¡Si, deseo salir del sistema!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+        allowEscapeKey: false,
+        allowOutsideClick: false
+      }, function () {
+      setTimeout(function () {
+        salir();
+      }, 1000);
+     });    
+  });
+
+  $("#cerrar-sesion-mobile").click(function () {
     // Muestra un cuadro de diálogo modal para confirmar el cierre de sesión
 		swal({
         title: "¿Esta seguro?",

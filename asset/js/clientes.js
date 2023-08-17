@@ -6,15 +6,18 @@ $(document).ready(function() {
 
 $("#formClientes").submit(function(event) {
     event.preventDefault();
-    var clientes_id = $("#formClientes #clientes_id").val();
-	var empresa = $("#formClientes #empresa").val();
-    var rtn = $("#formClientes #rtn").val();
-	var nombre_usuario = $("#formClientes #nombre_usuario").val(); 
-    var email = $("#formClientes #correo").val();
-    var pass = $("#formClientes #contrasena").val(); 
-    var rols = $("#formClientes #rols").val(); 
-    var estado = $("input[name='estado']:checked").val(); // Captura el valor del radio button seleccionado 
+	var formData = new FormData($(this)[0]); // Create FormData object
 
+    var clientes_id = $("#formClientes #clientes_id").val();
+    var empresa = $("#formClientes #empresa").val();
+    var rtn = $("#formClientes #rtn").val();
+    var nombre_usuario = $("#formClientes #nombre_usuario").val();
+    var email = $("#formClientes #correo").val();
+    var pass = $("#formClientes #contrasena").val();
+    var rols = $("#formClientes #rols").val();
+    var estado = $("input[name='estado']:checked").val(); 
+	var submitType = $("button[name='submitType']:focus").val(); // Obtener el valor del botón presionado
+	
 	if ($("#formClientes #contrasena").prop("disabled")) {
 		console.log("El campo está desactivado");
 	} else {
@@ -27,29 +30,36 @@ $("#formClientes").submit(function(event) {
 		console.log("El campo está activado");
 	}
 
-	var submitType = $("button[name='submitType']:focus").val(); // Obtener el valor del botón presionado
+    // Obtener el archivo seleccionado
+    var archivo = $("#imagen")[0].files[0];
+
+    // Crear un objeto FormData para enviar datos y archivos
+    var formData = new FormData();
+    formData.append("submitType", submitType);
+    formData.append("clientes_id", clientes_id);
+    formData.append("empresa", empresa);
+    formData.append("rtn", rtn);
+    formData.append("nombre_usuario", nombre_usuario);
+    formData.append("email", email);
+    formData.append("pass", pass);
+    formData.append("estado", estado);
+    formData.append("rols", rols);
+    formData.append("imagen", archivo); // Agregar el archivo al FormData
 
     // Envío de datos con Ajax a PHP
     $.ajax({
         type: "POST",
         url: "../backend/registrar_clientes.php",
-        data: {
-			submitType: submitType, // Enviar el tipo de acción
-            clientes_id: clientes_id,
-			empresa: empresa,
-            rtn: rtn,
-			nombre_usuario: nombre_usuario,
-            email: email,
-            pass: pass ,
-            estado: estado,
-            rols: rols            
-        },
+        data: formData,
+		processData: false, // Evitar el procesamiento automático de datos
+        contentType: false, // Evitar la configuración automática de contenido		
         success: function(response) {
 			if (submitType === "registrar") {
 				if (response === "success") {
 					$("#formClientes #result").html("<div class='alert alert-success'>Empresa registrada correctamente.</div>");
 					$("#formClientes")[0].reset();
-					listar_clientes();				
+					listar_clientes();
+					getImagenHeader();				
 				} else if (response.startsWith("error-existe: ")) {
 					var errorMessage = response.substring(13);
 					$("#formClientes #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");
@@ -62,21 +72,19 @@ $("#formClientes").submit(function(event) {
             } else if (submitType === "modificar") {
 				if (response === "success") {
 					$("#formClientes #result").html("<div class='alert alert-success'>Empresa modificada correctamente.</div>");
-					$("#formClientes")[0].reset();
-					$('#btnRegistroSave').show();
-					$('#btnRegistroEdit').hide();
-					$("#formClientes #grupo-user").hide();
 					listar_clientes();
-					$('#btnRegistroSave').hide();
-					$('#btnRegistroEdit').show();	
 					addValidate();
 					$('#btnRegistroSave').show();
 					$('#btnRegistroEdit').hide();					
+					getImagenHeader();
 				} else if (response.startsWith("error: ")) {
 					var errorMessage = response.substring(7);
 					$("#formClientes #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");
 				}
             }
+
+			$('#imagen').val('');
+			$("#imagenLabel").text("Seleccione una imágen en formato png");
 
 			// Ocultar el mensaje después de 5 segundos solo si la respuesta es exitosa
 			setTimeout(function() {
@@ -168,7 +176,7 @@ var listar_clientes = function(){
 
 function removeValidate(){
 	$("#formClientes #grupo-user").hide();
-
+	$("#formClientes #nombre_usuario").prop("disabled", true);
 	$("#formClientes #correo").prop("disabled", true);
 	$("#formClientes #contrasena").prop("disabled", true);
 	$("#formClientes #rols").prop("disabled", true);
@@ -176,7 +184,7 @@ function removeValidate(){
 
 function addValidate(){
 	$("#formClientes #grupo-user").show();
-
+	$("#formClientes #nombre_usuario").prop("disabled", false);
 	$("#formClientes #correo").prop("disabled", false);
 	$("#formClientes #contrasena").prop("disabled", false);
 	$("#formClientes #rols").prop("disabled", false);
@@ -186,6 +194,7 @@ var editar_clientes_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_editar");
 	$(tbody).on("click", "button.table_editar", function(){
 		removeValidate();
+		$("#formClientes #result").empty();
 		$('#btnRegistroSave').hide();
 		$('#btnRegistroEdit').show();	
 		
@@ -220,11 +229,12 @@ var eliminar_clientes_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
-        eliminarCorre(data.clientes_id, data.empresa);
+		$("#formClientes #result").empty();
+        eliminarCliente(data.clientes_id, data.empresa);
 	});
 }
 
-function eliminarCorre(clientes_id, empresa){
+function eliminarCliente(clientes_id, empresa){
 	swal({
 	  title: "¿Estas seguro?",
 	  text: "¿Desea eliminar este cliente: " + empresa+ "?",
@@ -236,11 +246,11 @@ function eliminarCorre(clientes_id, empresa){
 	  closeOnConfirm: false
 	},
 	function(){
-		deleteEmail(clientes_id, empresa);
+		deleteCliente(clientes_id, empresa);
 	});
 }
 
-function deleteEmail(clientes_id, empresa) {
+function deleteCliente(clientes_id, empresa) {
     var url = '../backend/delete_clientes.php';
 
     $.ajax({
@@ -305,7 +315,26 @@ function getRol(){
 	});		
 } 
 
+// Escuchar el evento de cambio en el input de archivo
+$("#imagen").change(function() {
+	// Obtener el nombre del archivo seleccionado
+	var fileName = $(this).val().split("\\").pop();
+	
+	// Mostrar el nombre del archivo en el elemento de texto si se seleccionó un archivo,
+	// de lo contrario, mostrar el mensaje por defecto
+	if (fileName) {
+		$("#imagenLabel").text("Imágen seleccionada: " + fileName);
+	} else {
+		$("#imagenLabel").text("Seleccione una imágen en formato png");
+	}
+});
+
 // Ocultar el mensaje después de 5 segundos (5000 milisegundos)
 setTimeout(function() {
     $("#formClientes #result").empty(); // Eliminar el contenido del elemento
 }, 5000); // 5000 milisegundos = 5 segundos 
+
+$("button[name='submitType']").click(function() {
+    var submitTypeValue = $(this).val();
+    console.log("submitType: " + submitTypeValue);
+});

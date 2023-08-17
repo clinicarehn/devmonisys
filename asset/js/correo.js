@@ -117,6 +117,7 @@ var eliminar_correo_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
+		$("#formCorreos #result").empty();
         eliminarCorreo(data.email, data.clientes_id);
 	});
 }

@@ -12,7 +12,7 @@
   <?php include 'header.php'; ?>
   
   <div class="container">
-    <div class="d-flex flex-wrap justify-content-center" id="hostsContainer">
+    <div class="d-flex flex-wrap justify-content-center hosts-container" id="hostsContainer">
       <!-- Los hosts se agregarán aquí dinámicamente desde JavaScript -->
     </div>
   </div>

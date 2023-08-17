@@ -158,6 +158,7 @@ var editar_hosts_dataTable = function(tbody, table){
 		$('#btnRegistroSave').hide();
 		$('#btnRegistroEdit').show();			
 		$('#formHosts')[0].reset();
+		$("#formHosts #result").empty();
 		
 		var data = table.row( $(this).parents("tr") ).data();
 		var url = '../backend/editar_hosts.php';
@@ -192,6 +193,7 @@ var eliminar_hosts_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
+		$("#formHosts #result").empty();
         eliminarCorre(data.hosts_id, data.host);
 	});
 }
