@@ -44,8 +44,8 @@
                 </div>
 
                 <div class="form-row visible" id="grupo-user"> 
-                    <div class="col-md-4 mb-3">
-                        <label for="nombre_usuario">Usuario <span class="priority">*<span/></label>
+                    <div class="col-md-3 mb-3">
+                        <label for="nombre_usuario">Nombre Usuario <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required data-toggle="tooltip" data-placement="top" title="Nombre del usuario">
                             <div class="input-group-append">				
@@ -62,29 +62,54 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-2 mb-3">
                         <label for="contrasena" class="form-label">Contraseña</label>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" id="contrasena" name="contrasena" required data-toggle="tooltip" data-placement="top" title="La contraseña debe ser menor a 8 caracteres">
+                            <input type="password" class="form-control" id="contrasena" name="contrasena" required data-toggle="tooltip" data-placement="top" title="La contraseña no debe ser menor a 8 caracteres y puede ser hasta 20 caracteres" maxlength="20" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <div class="input-group-append">				
                                 <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-lock"></i></span>
                             </div>
                         </div>
-                    </div>                                                     														
-                </div>
-
-                <div class="form-row visible" id="grupo-user">
-                    <div class="col-md-4 mb-3">
+                    </div>     
+                    <div class="col-md-3 mb-3" id="grupo-user">
                         <label for="rols" class="form-label">Rol</label>			
                         <div class="input-group mb-3">
                             <select class="selectpicker" id="rols" name="rols" required data-size="7" data-live-search="true" title="Rol">			  
                             </select>
                         </div>
-                    </div>                                                                        														
-                </div>                              
+                    </div>                                                                       														
+                </div>
+
+                <div class="form-row visible"> 
+                    <div class="col-md-3 mb-3">
+                        <label for="date_usuario">Fecha Expiración <span class="priority">*<span/></label>
+                        <div class="input-group mb-3">
+                            <input type="date" class="form-control" id="date_usuario" name="date_usuario" value="<?php echo date("Y-m-d"); ?>" required data-toggle="tooltip" data-placement="top" title="Fecha de Expiración">
+                            <div class="input-group-append">				
+                            <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-calendar-days"></i></span>
+                            </div>
+                        </div>
+                    </div>                       
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" data-toggle="tooltip" data-placement="top" title="Valiar Fecha de Expiración">Validar <span class="priority">*<span/></label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="validar" id="validar_si" value="1">
+                            <label class="form-check-label" for="activo">
+                                Sí
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="validar" id="validar_no" value="0" checked>
+                            <label class="form-check-label" for="inactivo">
+                                No
+                            </label>
+                        </div>                    
+                    </div>                                                   														
+                </div>                           
 
                 <div class="form-row">   
-                        <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label class="form-label">Estado <span class="priority">*<span/></label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="estado" id="activo" value="1" checked>
@@ -120,6 +145,8 @@
 							<tr>
 								<th>Empresa</th>
 								<th>RTN</th>
+                                <th>Validar</th>
+                                <th>Fecha Expiración</th>
 								<th>Editar</th>
 								<th>Eliminar</th>													
 							</tr>

@@ -280,7 +280,7 @@ var editar_usuario_dataTable = function(tbody, table){
 				if(valores[5] == 1){
 					$('#formUsuarios #activo').attr('checked', true);
 				}else{
-					$('#formUsuarios #inactivo').attr('checked', false);
+					$('#formUsuarios #inactivo').attr('checked', true);
 				}
 			}
 		});

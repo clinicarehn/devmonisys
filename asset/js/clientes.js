@@ -17,7 +17,9 @@ $("#formClientes").submit(function(event) {
     var rols = $("#formClientes #rols").val();
     var estado = $("input[name='estado']:checked").val(); 
 	var submitType = $("button[name='submitType']:focus").val(); // Obtener el valor del botón presionado
-	
+	var date_usuario = $("#formClientes #date_usuario").val();
+    var validar = $("input[name='validar']:checked").val(); 
+
 	if ($("#formClientes #contrasena").prop("disabled")) {
 		console.log("El campo está desactivado");
 	} else {
@@ -44,7 +46,9 @@ $("#formClientes").submit(function(event) {
     formData.append("pass", pass);
     formData.append("estado", estado);
     formData.append("rols", rols);
-    formData.append("imagen", archivo); // Agregar el archivo al FormData
+    formData.append("imagen", archivo);
+    formData.append("date_usuario", date_usuario);
+    formData.append("validar", validar);	
 
     // Envío de datos con Ajax a PHP
     $.ajax({
@@ -107,6 +111,8 @@ var listar_clientes = function(){
 		"columns":[
 			{"data":"empresa"},
 			{"data":"rtn"},
+			{"data":"has_expiration"},
+			{"data":"expiration_date"},
 			{"defaultContent":"<button class='table_editar btn btn-dark'><span class='fa-solid fa-pen-to-square'></span></button>"},
 			{"defaultContent":"<button class='table_eliminar btn btn-dark'><span class='fa fa-trash fa-lg'></span></button>"}
 		],
@@ -116,10 +122,12 @@ var listar_clientes = function(){
 		"language": idioma_español,
 		"dom": dom,
 		"columnDefs": [
-		  { width: "58%", targets: 0 },
-		  { width: "38%", targets: 1 },
-		  { width: "2%", targets: 2 },
-		  { width: "2%", targets: 3 }
+		  { width: "20%", targets: 0 },
+		  { width: "20%", targets: 1 },
+		  { width: "20%", targets: 2 },
+		  { width: "20%", targets: 3 },
+		  { width: "20%", targets: 4 },
+		  { width: "20%", targets: 5 }
 		],
 		"buttons":[
 			{
@@ -214,12 +222,19 @@ var editar_clientes_dataTable = function(tbody, table){
 				$('#btnRegistroEdit').show();
 				$('#formClientes #empresa').val(valores[0]);
 				$('#formClientes #rtn').val(valores[2]);				
+				$('#formClientes #date_usuario').val(valores[5]);
 
-				if(valores[3] == 1){
+				if(valores[3] === 1){
 					$('#formClientes #activo').attr('checked', true);
 				}else{
-					$('#formClientes #inactivo').attr('checked', false);
-				}
+					$('#formClientes #inactivo').attr('checked', true);
+				}			
+
+				if(valores[4] === 'Sí'){
+					$('#formClientes #validar_si').attr('checked', true);
+				}else{
+					$('#formClientes #validar_no').attr('checked', true);
+				}				
 			}
 		});
 	});

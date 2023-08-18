@@ -152,7 +152,7 @@ var editar_clientes_dataTable = function(tbody, table){
 				if(valores[3] == 1){
 					$('#formClientes #activo').attr('checked', true);
 				}else{
-					$('#formClientes #inactivo').attr('checked', false);
+					$('#formClientes #inactivo').attr('checked', true);
 				}
 			}
 		});

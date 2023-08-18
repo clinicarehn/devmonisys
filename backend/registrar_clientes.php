@@ -1,4 +1,6 @@
 <?php
+require_once "configGenerales.php";
+
 // Importamos la clase Database
 require_once "Database.php";
 
@@ -13,6 +15,8 @@ $nombre_usuario = $_POST["nombre_usuario"];
 $pass = $_POST["pass"];
 $estado = $_POST["estado"];
 $rols = $_POST["rols"];
+$fecha_expiracion = $_POST["date_usuario"];
+$validar = $_POST["validar"];
 
 if (isset($_POST['submitType'])) {
     $submitType = $_POST['submitType'];
@@ -66,9 +70,9 @@ if (isset($_POST['submitType'])) {
         
                     // Insertar el nuevo usuario en la tabla "usuarios"
                     $tablaUsuarios = "usuarios";
-                    $camposUsuarios = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "estado", "date_create"];
+                    $camposUsuarios = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "has_expiration",  "expiration_date", "estado", "date_create"];
                     $campoCorrelativoUsuarios = "usuarios_id";
-                    $valoresUsuarios = [$database->obtenerCorrelativo($tablaUsuarios, $campoCorrelativoUsuarios), $clientes_id, $nombre_usuario, $email, $hashedPass, $rols, $estado, date("y-m-d h:m:s")];
+                    $valoresUsuarios = [$database->obtenerCorrelativo($tablaUsuarios, $campoCorrelativoUsuarios), $clientes_id, $nombre_usuario, $email, $hashedPass, $rols, $validar, $fecha_expiracion, $estado, date("y-m-d h:m:s")];
         
                     //VALIDAMOS SI EL CORREO NO EXISTE
         // Validamos si el cliente ya existe
@@ -139,7 +143,7 @@ if (isset($_POST['submitType'])) {
                 echo "error: Error al modificar el cliente $empresa con el rtn $rtn";
             } 
         }else{
-            $datos_actualizar = ['empresa' => $empresa, 'rtn' => $rtn, 'estado' => $estado, 'image' => $imageFilename];
+            $datos_actualizar = ['empresa' => $empresa, 'rtn' => $rtn, 'estado' => $estado, 'image' => $imageFilename, 'has_expiration' => $imageFilename];
             $condiciones_actualizar = ["clientes_id" => $clientes_id];
 
             //VALIDAMOS SI EL RTN NO EXISTE ANTES DE GUARDARLO
@@ -157,6 +161,11 @@ if (isset($_POST['submitType'])) {
                 echo "error-existe: lo sentimos este rtn $rtn ya esta registrado";
             }           
         }
+
+        $tabla = "usuarios";
+        $datos_actualizar = ['has_expiration' => $validar, 'expiration_date' => $fecha_expiracion];
+        $condiciones_actualizar = ["clientes_id" => $clientes_id]; 
+        $database->actualizarRegistros($tabla, $datos_actualizar, $condiciones_actualizar);
     }
 }
 ?>

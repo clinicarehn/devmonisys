@@ -5,7 +5,7 @@ class Database {
   private $usuario = 'root';
   private $contrasena = 'Edwin82003%';
   private $base_datos = 'monitoring';
-  private $conexion;
+  private $conexion;  
 
   public function __construct() {
     $this->conexion = new mysqli($this->host, $this->usuario, $this->contrasena, $this->base_datos);
