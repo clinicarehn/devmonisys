@@ -12,7 +12,8 @@ $usuario_rol = $_SESSION['rol'];
 $tablaTipos = "rols";
 $camposTipos = ["rols_id", "nombre"];
 $condicionesTipos = [];
-$resultadoTipos = $database->consultarTabla($tablaTipos, $camposTipos, $condicionesTipos);
+$orderBy = "";
+$resultadoTipos = $database->consultarTabla($tablaTipos, $camposTipos, $condicionesTipos, $orderBy);
 
 if (!empty($resultadoTipos)) {
     // Generar las opciones del select

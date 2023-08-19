@@ -30,7 +30,8 @@ if (isset($_POST['submitType'])) {
         $tablaClientes = "clientes";
         $camposClientes = ["clientes_id"];
         $condicionesClientes = ["rtn" => $rtn];
-        $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes);
+        $orderBy = "";
+        $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes, $orderBy);
         
         if (empty($resultadoClientes)) {
             // Manejo del archivo subido
@@ -60,7 +61,8 @@ if (isset($_POST['submitType'])) {
             if ($database->insertarRegistro($tabla, $campos, $valores)) {
                 // Verificar si el cliente ya está registrado
                 $condicionesClientes_ = ["empresa" => $empresa];
-                $resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_);
+                $orderBy = "";
+                $resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_, $orderBy);
 
                 if (!empty($resultadoClientes_)) {
                     
@@ -79,7 +81,8 @@ if (isset($_POST['submitType'])) {
                     $tablaUsuariosValidar = "usuarios";
                     $camposUsuariosValidar = ["usuarios_id"];
                     $condicioneUsuariosValidar = ["email" => $email];
-                    $resultadoUsuariosValidar = $database->consultarTabla($tablaUsuariosValidar, $camposUsuariosValidar, $condicioneUsuariosValidar);                    
+                    $orderBy = "";
+                    $resultadoUsuariosValidar = $database->consultarTabla($tablaUsuariosValidar, $camposUsuariosValidar, $condicioneUsuariosValidar, $orderBy);                    
 
                     if (empty($resultadoUsuariosValidar)) {
                         // Insertar el nuevo usuario en la tabla "usuarios"
@@ -125,7 +128,8 @@ if (isset($_POST['submitType'])) {
         $tabla = "clientes";
         $camposClientes = ["clientes_id", "rtn", "image"];
         $condicionesClientes_ = ["clientes_id" => $clientes_id];
-        $resultadoClientes_ = $database->consultarTabla($tabla, $camposClientes, $condicionesClientes_);
+        $orderBy = "";
+        $resultadoClientes_ = $database->consultarTabla($tabla, $camposClientes, $condicionesClientes_, $orderBy);
         $rtn_consulta = $resultadoClientes_[0]['rtn'];
 
         if($imageFilename === "") {
@@ -148,7 +152,8 @@ if (isset($_POST['submitType'])) {
 
             //VALIDAMOS SI EL RTN NO EXISTE ANTES DE GUARDARLO
             $condicionesClientesNueva = ["rtn" => $rtn];
-            $resultadoClientes = $database->consultarTabla($tabla, $camposClientes, $condicionesClientesNueva);
+            $orderBy = "";
+            $resultadoClientes = $database->consultarTabla($tabla, $camposClientes, $condicionesClientesNueva, $orderBy);
             
             if (empty($resultadoClientes)) {
                 // Llamar a la función para actualizar los registros

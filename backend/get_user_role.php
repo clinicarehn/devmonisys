@@ -13,7 +13,8 @@ $user_id = $_SESSION['user_id'];
 $tabla = "usuarios";
 $campos = ["rols_id"];
 $condiciones = ["usuarios_id" => $user_id];
-$resultados = $database->consultarTabla($tabla, $campos, $condiciones);
+$orderBy = "";
+$resultados = $database->consultarTabla($tabla, $campos, $condiciones, $orderBy);
 
 // Verifica si se obtuvieron resultados
 if (!empty($resultados)) {
@@ -22,7 +23,8 @@ if (!empty($resultados)) {
     $tabla_roles = "rols";
     $campos_roles = ["nombre"];
     $condiciones_roles = ["rols_id" => $rol_id];
-    $resultados_roles = $database->consultarTabla($tabla_roles, $campos_roles, $condiciones_roles);
+    $orderBy = "";
+    $resultados_roles = $database->consultarTabla($tabla_roles, $campos_roles, $condiciones_roles, $orderBy);
 
     if (!empty($resultados_roles)) {
         $nombre_rol = $resultados_roles[0]['nombre'];

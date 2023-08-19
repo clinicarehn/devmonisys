@@ -17,6 +17,7 @@ var listar_historial = function(){
 			{"data":"port"},
 			{"data":"mensaje"}
 		],
+		"order": [[0, "desc"]], // Ordenar por la primera columna en orden descendente
         "lengthMenu": lengthMenu,
 		"stateSave": true,
 		"bDestroy": true,

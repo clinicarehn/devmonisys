@@ -26,7 +26,8 @@ if (isset($_POST['submitType'])) {
         $tablahosts = "hosts";
         $camposHotsConsulta = ["hosts_id"];
         $condicionesHosts = ["host" => $ip, "port" => $port];
-        $resultadoHostsValidar = $database->consultarTabla($tablahosts, $camposHotsConsulta, $condicionesHosts);
+        $orderBy = "";
+        $resultadoHostsValidar = $database->consultarTabla($tablahosts, $camposHotsConsulta, $condicionesHosts, $orderBy);
 
         if (empty($resultadoHostsValidar)) {
             // Registramos el Host
@@ -51,7 +52,8 @@ if (isset($_POST['submitType'])) {
         $tabla = "hosts";
         $camposHosts = ["hosts_id", "host", "port"];
         $condicionesHosts_ = ["hosts_id" => $hosts_id];
-        $resultadohosts_ = $database->consultarTabla($tabla, $camposHosts, $condicionesHosts_);
+        $orderBy = "";
+        $resultadohosts_ = $database->consultarTabla($tabla, $camposHosts, $condicionesHosts_, $orderBy);
         $hosts_consulta = $resultadohosts_[0]['host'];
         $port_consulta = $resultadohosts_[0]['port'];
 
@@ -72,7 +74,8 @@ if (isset($_POST['submitType'])) {
             
             //Validamos si la IP y el port no existen antes de guardar
             $condicionesHostsNueva = ["host" => $ip, "port" => $port];
-            $resultadoHosts = $database->consultarTabla($tabla, $camposHosts_, $condicionesHostsNueva);
+            $orderBy = "";
+            $resultadoHosts = $database->consultarTabla($tabla, $camposHosts_, $condicionesHostsNueva, $orderBy);
             
             if (empty($resultadoHosts)) {
                 // Llamar a la función para actualizar los registros

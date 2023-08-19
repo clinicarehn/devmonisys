@@ -8,7 +8,8 @@ $database = new Database();
 $tablaTipos = "tipos";
 $camposTipos = ["tipos_id", "nombre"];
 $condicionesTipos = [""];
-$resultadoTipos = $database->consultarTabla($tablaTipos, $camposTipos, $condicionesTipos);
+$orderBy = "";
+$resultadoTipos = $database->consultarTabla($tablaTipos, $camposTipos, $condicionesTipos, $orderBy);
 
 if (!empty($resultadoTipos)) {
 	// Generar las opciones del select

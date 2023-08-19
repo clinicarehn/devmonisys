@@ -12,7 +12,8 @@ $empresa = $_POST['empresa'];
 $tablaUsuarios = "usuarios";
 $camposUsuarios = ["usuarios_id"];
 $condicionesUsuarios = ["clientes_id" => $clientes_id];
-$resultadoUsuarios = $database->consultarTabla($tablaUsuarios, $camposUsuarios, $condicionesUsuarios);
+$orderBy = "";
+$resultadoUsuarios = $database->consultarTabla($tablaUsuarios, $camposUsuarios, $condicionesUsuarios, $orderBy);
 
 if (empty($resultadoUsuarios)) {
     $tabla = "clientes";

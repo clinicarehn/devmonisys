@@ -8,7 +8,8 @@
     $tablaClientes = "clientes";
     $camposClientes = ["image"];
     $condicionesClientes = ["clientes_id" => $clientes_id];
-    $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes);
+    $orderBy = "";
+    $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes, $orderBy);
 
     if (!empty($resultadoClientes)) {
         $image = $resultadoClientes[0]['image'];

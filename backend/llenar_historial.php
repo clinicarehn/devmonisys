@@ -16,7 +16,8 @@ $data = array();
 $tabla = "logs";
 $camposConsulta = ["id", "clientes_id", "hosts_id", "fecha", "mensaje"];
 $condicioneshosts = ["clientes_id" => $clientes_id];
-$resultadoHostValidar = $database->consultarTabla($tabla, $camposConsulta, $condicioneshosts);
+$orderBy = "fecha DESC";
+$resultadoHostValidar = $database->consultarTabla($tabla, $camposConsulta, $condicioneshosts, $orderBy);
 
 if (!empty($resultadoHostValidar)) {
     // Llenar el array $data con los resultados
@@ -25,7 +26,8 @@ if (!empty($resultadoHostValidar)) {
         $tablaHosts = "hosts";
         $camposConsultaHosts = ["nombre", "host", "port"];
         $condicionesHosts = ["hosts_id" => $row['hosts_id']];
-        $resultadoHosts = $database->consultarTabla($tablaHosts, $camposConsultaHosts, $condicionesHosts);
+        $orderBy = "";
+        $resultadoHosts = $database->consultarTabla($tablaHosts, $camposConsultaHosts, $condicionesHosts, $orderBy);
 
         $nombre = "";
         $host = "";
@@ -41,7 +43,8 @@ if (!empty($resultadoHostValidar)) {
         $tablaClientes = "clientes";
         $camposConsultaClientes = ["empresa"];
         $condicionesClientes = ["clientes_id" => $row['clientes_id']];
-        $resultadoClientes = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes);
+        $orderBy = "";
+        $resultadoClientes = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes, $orderBy);
 
         $empresa = "";
      
@@ -67,7 +70,8 @@ $arreglo = array(
     "echo" => 1,
     "totalrecords" => count($data),
     "totaldisplayrecords" => count($data),
-    "data" => $data
+    "data" => $data,
+    "order" => array(array(0, "desc")) // Ordenar por la primera columna en orden descendente
 );
 
 echo json_encode($arreglo);

@@ -10,7 +10,8 @@ $usuarios_id = $_POST['usuarios_id'];
 $tablaUsers = "usuarios";
 $camposUsers = ["usuarios_id", "clientes_id", "nombre", "email", "rols_id", "estado"];
 $condicionesUsers = ["usuarios_id" => $usuarios_id];
-$resultadoUsers = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsers);
+$orderBy = "";
+$resultadoUsers = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsers, $orderBy);
 
 $datos = array(
 	0 => $resultadoUsers[0]['usuarios_id'],

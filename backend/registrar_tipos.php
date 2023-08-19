@@ -12,7 +12,8 @@ $grupo = strtoupper($_POST["grupo"]);
 $tablahosts = "tipos";
 $camposHotsConsulta = ["nombre"];
 $condicionesHosts = ["nombre" => $grupo]; // Agregamos la condición del puerto
-$resultadoHostsValidar = $database->consultarTabla($tablahosts, $camposHotsConsulta, $condicionesHosts);
+$orderBy = "";
+$resultadoHostsValidar = $database->consultarTabla($tablahosts, $camposHotsConsulta, $condicionesHosts, $orderBy);
 
 if (empty($resultadoHostsValidar)) {
     // Registramos el Host

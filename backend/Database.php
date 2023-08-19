@@ -66,7 +66,7 @@ class Database {
     }
   }
 
-  public function consultarTabla($tabla, $campos = array(), $condiciones = array()) {
+  public function consultarTabla($tabla, $campos = array(), $condiciones = array(), $orderBy = '') {
         $tabla = $this->conexion->real_escape_string($tabla);
 
         // Construir la consulta SELECT básica
@@ -90,6 +90,11 @@ class Database {
                 $clauses[] = "$campo = '$valor'";
             }
             $query .= " WHERE " . implode(" AND ", $clauses); // Concatenar las condiciones usando AND
+        }
+
+        // Agregar cláusula ORDER BY si se especifica
+        if (!empty($orderBy)) {
+            $query .= " ORDER BY $orderBy";
         }
 
         // Ejecutar la consulta

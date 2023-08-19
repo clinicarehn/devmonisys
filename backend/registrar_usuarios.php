@@ -32,7 +32,8 @@ if (isset($_POST['submitType'])) {
         $tablaUsers = "usuarios";
         $camposUsersConsulta = ["usuarios_id"];
         $condicionesUsers = ["email" => $correo];
-        $resultadoUsersValidar = $database->consultarTabla($tablaUsers, $camposUsersConsulta, $condicionesUsers);
+        $orderBy = "";
+        $resultadoUsersValidar = $database->consultarTabla($tablaUsers, $camposUsersConsulta, $condicionesUsers, $orderBy);
 
         if (empty($resultadoUsersValidar)) {
             // Registramos el Usuario
@@ -61,7 +62,8 @@ if (isset($_POST['submitType'])) {
         $tablaUsers = "usuarios";
         $camposUsers = ["usuarios_id", "email"];
         $condicionesUsers_ = ["usuarios_id" => $usuarios_id];
-        $resultadoUsers_ = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsers_);
+        $orderBy = ""
+        $resultadoUsers_ = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsers_, $orderBy);
         $email_consulta = $resultadoUsers_[0]['email'];
 
         if($correo === $email_consulta){
@@ -80,7 +82,8 @@ if (isset($_POST['submitType'])) {
 
             //Validamos si el correo no esta registrado
             $condicionesUsersNueva = ["email" => $correo];
-            $resultadoUsers = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsersNueva);
+            $orderBy = "";
+            $resultadoUsers = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsersNueva, $orderBy);
 
             if (empty($resultadoClientes)) {
                 // Llamar a la función para actualizar los registros

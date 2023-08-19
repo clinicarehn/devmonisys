@@ -18,7 +18,7 @@
         <a href="#" id="cerrar-sesion" class="nav-item nav-link d-none d-lg-block">Cerrar Sesión</a>
         
         <!-- Enlace "Cerrar Sesión" visible en dispositivos móviles -->
-        <a href="#" id="cerrar-sesion-mobile" class="nav-item nav-link d-block d-lg-none nav-item">Cerrar Sesión</a>
+        <a href="#" id="cerrar-sesion-mobile" class="nav-item nav-link d-block d-lg-none" style="color: white !important; display: block; margin-top: 10px; text-align: center;">Cerrar Sesión</a>
     </div>
 </nav>
 

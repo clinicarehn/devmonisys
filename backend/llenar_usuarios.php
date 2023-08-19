@@ -17,20 +17,22 @@ $data = array();
 $tabla = "usuarios";
 $camposConsulta = ["usuarios_id", "clientes_id", "nombre", "email", "rols_id", "estado"];
 $condiciones = ["clientes_id" => $clientes_id_inicio];
+$orderBy = ""
 
 if($rol_inicio === "superadmin"){
     $condiciones = ["estado" => "1"];
 }
 
-$resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condiciones);
+$resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condiciones, $orderBy);
 
 if (!empty($resultadoCorreoValidar)) {
     // Llenar el array $data con los resultados
     foreach ($resultadoCorreoValidar as $row) {
         $tablaClientes = "clientes";
         $camposConsultaClientes = ["empresa"];
-        $condicionesClientes = ["clientes_id" => $row['clientes_id']]; // Agregamos la condición del puerto
-        $resultadoClientesValidar = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes);
+        $condicionesClientes = ["clientes_id" => $row['clientes_id']];
+        $orderBy = "";
+        $resultadoClientesValidar = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes, $orderBy);
 
         if (!empty($resultadoClientesValidar)) {
             $empresa_consulta = $resultadoClientesValidar[0]['empresa'];
@@ -38,8 +40,9 @@ if (!empty($resultadoCorreoValidar)) {
 
         $tablaRols = "rols";
         $camposConsultaRols = ["nombre"];
-        $condicionesRols = ["rols_id" => $row['rols_id']]; // Agregamos la condición del puerto
-        $resultadoRolsValidar = $database->consultarTabla($tablaRols, $camposConsultaRols, $condicionesRols);
+        $condicionesRols = ["rols_id" => $row['rols_id']]; 
+        $orderBy = "";
+        $resultadoRolsValidar = $database->consultarTabla($tablaRols, $camposConsultaRols, $condicionesRols, $orderBy);
         $rol_consulta = $resultadoRolsValidar[0]['nombre'];        
 
         $data[] = array(

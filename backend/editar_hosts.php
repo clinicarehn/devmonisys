@@ -10,7 +10,8 @@ $hosts_id = $_POST['hosts_id'];
 $tablaClientes = "hosts";
 $camposClientes = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id"];
 $condicionesClientes_ = ["hosts_id" => $hosts_id];
-$resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_);
+$orderBy = "";
+$resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_, $orderBy);
 
 $datos = array(
 	0 => $resultadoClientes_[0]['hosts_id'],

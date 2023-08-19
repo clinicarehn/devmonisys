@@ -12,7 +12,8 @@ $nombre = $_POST['nombre'];
 $tablaHosts = "hosts";
 $camposHosts = ["hosts_id"];
 $condicionesHosts = ["tipos_id" => $tipos_id];
-$resultadoHosts = $database->consultarTabla($tablaHosts, $camposHosts, $condicionesHosts);
+$orderBy = "";
+$resultadoHosts = $database->consultarTabla($tablaHosts, $camposHosts, $condicionesHosts, $orderBy);
 
 if (empty($resultadoHosts)) {
     $tabla = "tipos";

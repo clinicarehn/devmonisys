@@ -1,64 +1,58 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9; /* Light gray background */
+  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Set minimum height to occupy the full viewport */
+  min-height: 100vh;
 }
 
 .custom-header {
-  background-color: #2c3e50; /* Dark blue background for the header */
+  background-color: #2c3e50;
   color: #fff;
   padding: 10px;
-  position: fixed; /* Set the header to a fixed position */
-  top: 0; /* Stick the header to the top */
-  left: 0; /* Stick the header to the left */
-  width: 100%; /* Ensure the header spans the full width */
-}
-
-.header-content {
   display: flex;
-  align-items: center; /* Center the elements vertically */
-  justify-content: space-between; /* Space between the elements */
-}
-
-.logo {
-  width: 75px; /* Adjust the logo size to 75px */
-  max-width: 100%; /* Ensure the logo doesn't exceed its original size */
-  height: auto; /* Maintain the aspect ratio of the logo */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-title {
   margin: 0;
-  text-align: center; /* Center the header title horizontally */
-  flex: 1; /* Take up the remaining space */
+  text-align: center;
+  flex: 1;
+}
+
+.logo {
+  width: 75px;
+  max-width: 100%;
+  height: auto;
 }
 
 .container {
   flex: 1;
-  padding: 80px 10px 30px; /* Add top padding to push content below the fixed header */
+  padding: 80px 10px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .hosts-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%; /* Ensure the .hosts-container fills the available width */
-  flex-grow: 1; /* Allow the container to grow to fill available space */
-  overflow-y: auto; /* Add scrollbar when content exceeds the container height */
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .hosts {
   display: flex;
   align-items: center;
-  height: 60px; /* Reduced height */
-  margin-bottom: 5px; /* Reduced margin */
+  height: 60px;
+  margin-bottom: 5px;
   box-sizing: border-box;
-  padding: 5px; /* Reduced padding */
+  padding: 5px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
   border-radius: 5px;
@@ -68,45 +62,41 @@ body {
 }
 
 .hosts:hover {
-  background-color: #f0f0f0; /* Change the background color on hover */
+  background-color: #f0f0f0;
 }
 
 .texto {
   flex: 1;
-  font-size: 12px; /* Reduced font size */
+  font-size: 12px;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
 
 .estado {
-  width: 12px; /* Reduced width */
-  height: 12px; /* Reduced height */
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  margin-left: 5px; /* Reduced margin */
+  margin-left: 5px;
   flex-shrink: 0;
 }
-/* Status colors */
+
 .estado.up {
-  background-color: #2ecc71; /* Green for available */
+  background-color: #2ecc71;
 }
 
 .estado.down {
-  background-color: #e74c3c; /* Red for occupied */
+  background-color: #e74c3c;
 }
 
 .custom-footer {
-  background-color: #2c3e50; /* Dark blue background for the footer */
+  background-color: #2c3e50;
   color: #fff;
   padding: 10px;
   text-align: center;
-  width: 100%; /* Ensure the footer spans the full width */
-  position: fixed; /* Set the footer to a fixed position */
-  bottom: 0; /* Stick the footer to the bottom */
-  left: 0; /* Stick the footer to the left */
-  height: 40px; /* Reduce the height to make the footer visually smaller */
+  width: 100%;
+  height: 40px;
 }
 
-/* Styles for the group of hosts */
 .grupo-hosts {
   display: flex;
   flex-direction: column;
@@ -121,57 +111,52 @@ body {
   overflow-y: auto;
 }
 
-/* Adjust the title style to take 98% width of its parent container */
 .grupo-hosts h3 {
   margin: 0;
   padding: 10px 0;
   background-color: #333;
   color: #fff;
   border-radius: 5px 5px 0 0;
-  width: 98%; /* Set the width to 98% of its parent container */
-  text-align: center; /* Center the title horizontally */
-  word-break: break-word; /* Allow the title to break into multiple lines if needed */
+  width: 98%;
+  text-align: center;
+  word-break: break-word;
 }
 
-/* Custom hover style for the group title */
 .grupo-hosts h3:hover {
-  background-color: #34495e; /* Darker blue on hover */
+  background-color: #34495e;
 }
 
-/* Remove the default list style for the group of hosts */
 .grupo-hosts ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Add some space between the group title and the hosts */
 .grupo-hosts h3 {
   margin-bottom: 10px;
 }
 
-/* Estilo para dispositivos móviles */
 @media (max-width: 768px) {
   .logo {
-    width: 30px; /* Adjust the logo size for smaller screens */
-    margin-right: 5px; /* Reduce the spacing between the logo and the header title */
+    width: 30px;
+    margin-right: 5px;
   }
 
   .header-title {
-    font-size: 18px; /* Reduce the font size for smaller screens */
+    font-size: 18px;
   }
 
   .custom-header {
-    flex-direction: column; /* Stack the logo and header title vertically on smaller screens */
-    align-items: flex-start; /* Align the logo and header title to the left */
-    padding: 20px; /* Add more padding for better spacing on smaller screens */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
   }
 
   .custom-footer {
-    padding-bottom: 60px; /* Add more padding at the bottom to avoid content overlap */
+    padding-bottom: 60px;
   }
 
   .container {
-    padding-top: 100px; /* Adjust the top padding for smaller screens */
+    padding-top: 100px;
   }
 }

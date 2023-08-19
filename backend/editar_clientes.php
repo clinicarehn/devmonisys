@@ -10,13 +10,15 @@ $clientes_id = $_POST['clientes_id'];
 $tablaClientes = "clientes";
 $camposClientes = ["clientes_id", "empresa", "rtn", "estado", "date_create"];
 $condicionesClientes_ = ["clientes_id" => $clientes_id];
-$resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_);
+$orderBy = "";
+$resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_, $orderBy);
 
 //Consultamos datos del usuario
 $tabla = "usuarios";
 $camposConsulta = ["has_expiration", "expiration_date"];
 $condiciones = ["clientes_id" => $resultadoClientes_[0]['clientes_id']];
-$resultadoUsuarios = $database->consultarTabla($tabla, $camposConsulta, $condiciones);
+$orderBy = "";
+$resultadoUsuarios = $database->consultarTabla($tabla, $camposConsulta, $condiciones, $orderBy);
 
 if (!empty($resultadoUsuarios)) {
 	$has_expiration = $resultadoUsuarios[0]['has_expiration'] == 1 ? 'Sí' : 'No';

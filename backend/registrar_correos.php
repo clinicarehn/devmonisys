@@ -15,7 +15,8 @@ $clientes_id = $_SESSION['clientes_id']; // Reemplaza esto con el ID de usuario 
 $tabla = "clientes_correo";
 $camposConsulta = ["clientes_id"];
 $condiciones = ["email" => $email, "clientes_id" => $clientes_id]; // Agregamos la condición
-$resultadoHostsValidar = $database->consultarTabla($tabla, $camposConsulta, $condiciones);
+$orderBy = "";
+$resultadoHostsValidar = $database->consultarTabla($tabla, $camposConsulta, $condiciones, $orderBy);
 
 if (empty($resultadoHostsValidar)) {
     // Registramos el Host

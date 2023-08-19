@@ -22,7 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tabla = "usuarios";
     $campos = ["usuarios_id", "clientes_id", "email", "pass", "rols_id", "estado", "has_expiration", "expiration_date"];
     $condiciones = ["email" => $email];
-    $usuarios = $database->consultarTabla($tabla, $campos , $condiciones);
+    $orderBy = "";
+    $usuarios = $database->consultarTabla($tabla, $campos , $condiciones, $orderBy);
 
     if (!empty($usuarios)) {
         $userData = $usuarios[0];
@@ -37,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }else{
                         // Obtiene el rol del usuario desde la tabla de roles
                         $condicionesRoles = ["rols_id" => $userData['rols_id']];
-                        $roles = $database->consultarTabla("rols", ["nombre"], $condicionesRoles);
+                        $orderBy = "";
+                        $roles = $database->consultarTabla("rols", ["nombre"], $condicionesRoles, $orderBy);
 
                         if (!empty($roles)) {
                             $userRole = $roles[0]['nombre'];
@@ -59,7 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }else{
                     // Obtiene el rol del usuario desde la tabla de roles
                     $condicionesRoles = ["rols_id" => $userData['rols_id']];
-                    $roles = $database->consultarTabla("rols", ["nombre"], $condicionesRoles);
+                    $orderBy = "";
+                    $roles = $database->consultarTabla("rols", ["nombre"], $condicionesRoles, $orderBy);
 
                     if (!empty($roles)) {
                         $userRole = $roles[0]['nombre'];
@@ -79,7 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }else{
                 // Obtiene el rol del usuario desde la tabla de roles
                 $condicionesRoles = ["rols_id" => $userData['rols_id']];
-                $roles = $database->consultarTabla("rols", ["nombre"], $condicionesRoles);
+                $orderBy = "";
+                $roles = $database->consultarTabla("rols", ["nombre"], $condicionesRoles, $orderBy);
 
                 if (!empty($roles)) {
                     $userRole = $roles[0]['nombre'];

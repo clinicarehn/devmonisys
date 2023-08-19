@@ -15,8 +15,9 @@ $data = array();
 //Validamos si existe el host antes de guardarlo
 $tabla = "clientes";
 $camposConsulta = ["clientes_id", "empresa", "rtn", "estado"];
-$condicionesCorreos = ["estado" => "1"]; // Agregamos la condición del puerto
-$resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos);
+$condicionesCorreos = ["estado" => "1"];
+$orderBy = "";
+$resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos, $orderBy);
 
 if (!empty($resultadoCorreoValidar)) {
     // Llenar el array $data con los resultados
@@ -25,7 +26,8 @@ if (!empty($resultadoCorreoValidar)) {
         $tabla = "usuarios";
         $camposConsulta = ["has_expiration", "expiration_date"];
         $condiciones = ["clientes_id" => $row['clientes_id']];
-        $resultadoUsuarios = $database->consultarTabla($tabla, $camposConsulta, $condiciones);
+        $orderBy = "";
+        $resultadoUsuarios = $database->consultarTabla($tabla, $camposConsulta, $condiciones, $orderBy);
 
         if (!empty($resultadoUsuarios)) {
             $has_expiration = $resultadoUsuarios[0]['has_expiration'] == 1 ? 'Sí' : 'No';

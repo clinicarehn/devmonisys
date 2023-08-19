@@ -15,7 +15,8 @@ $condiciones_eliminar = ["hosts_id" => $hosts_id];
 $tablaLogs = "logs";
 $camposLogs = ["id"];
 $condicionesLogs = ["hosts_id" => $hosts_id];
-$resultadoLogs = $database->consultarTabla($tablaLogs, $camposLogs, $condicionesLogs);
+$orderBy = "";
+$resultadoLogs = $database->consultarTabla($tablaLogs, $camposLogs, $condicionesLogs, $orderBy);
 
 if (empty($resultadoLogs)) {
     // Intentar eliminar los registros y devolver la respuesta

@@ -16,7 +16,8 @@ $data = array();
 $tabla = "hosts";
 $camposConsulta = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id"];
 $condicioneshosts = ["clientes_id " => $clientes_id];
-$resultadoHostValidar = $database->consultarTabla($tabla, $camposConsulta, $condicioneshosts);
+$orderBy = "";
+$resultadoHostValidar = $database->consultarTabla($tabla, $camposConsulta, $condicioneshosts, $orderBy);
 
 if (!empty($resultadoHostValidar)) {
     // Llenar el array $data con los resultados
@@ -25,7 +26,8 @@ if (!empty($resultadoHostValidar)) {
         $tablaClientes = "clientes";
         $camposConsultaClientes = ["empresa"];
         $condicionesClientes = ["clientes_id " => $row['clientes_id']];
-        $resultadoClientes = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes);
+        $orderBy = "";
+        $resultadoClientes = $database->consultarTabla($tablaClientes, $camposConsultaClientes, $condicionesClientes, $orderBy);
 
         $cliente = "";
         if (!empty($resultadoClientes)) {
@@ -36,7 +38,8 @@ if (!empty($resultadoHostValidar)) {
         $tablaGrupos = "tipos";
         $camposConsultaGrupos = ["nombre"];
         $condicionesGrupos = ["tipos_id" => $row['tipos_id']];
-        $resultadoGrupos = $database->consultarTabla($tablaGrupos, $camposConsultaGrupos, $condicionesGrupos);
+        $orderBy = "";
+        $resultadoGrupos = $database->consultarTabla($tablaGrupos, $camposConsultaGrupos, $condicionesGrupos, $orderBy);
 
         $grupo = "";
         if (!empty($resultadoGrupos)) {
