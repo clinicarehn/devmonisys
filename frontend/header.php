@@ -1,3 +1,7 @@
+<?php
+  require_once "../backend/configGenerales.php";
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light custom-header">
     <a class="navbar-brand" href="#">
         <img src="../img/logos/<?php echo $imageNombre; ?>" alt="CLINICARE" class="logo">
@@ -17,3 +21,10 @@
         <a href="#" id="cerrar-sesion-mobile" class="nav-item nav-link d-block d-lg-none nav-item">Cerrar Sesión</a>
     </div>
 </nav>
+
+<?php
+  if (SISTEMA_PRUEBA=="SI"){ //CAJA
+?>
+    <span class="container-fluid prueba-sistema">SISTEMA DE PRUEBA</span>
+<?php
+  }

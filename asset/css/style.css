@@ -312,3 +312,15 @@
   visibility: visible;
   position: static;
 }
+
+.prueba-sistema{
+	position: absolute;
+	text-align: center;
+	left: 25%;
+	top: 50%;
+	transform: translateX(-25%) translateY(-100%);
+	font-size: 50px;
+	z-index: 1;
+	/*transform: rotate(-45deg);*/
+  	color: #ecb4b4
+}
