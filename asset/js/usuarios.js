@@ -59,6 +59,8 @@ $("#formUsuarios").submit(function(event) {
 					$("#formUsuarios #result").html("<div class='alert alert-success'>Usuario agregado correctamente.</div>");
 					$("#formUsuarios")[0].reset();
 					listar_usuarios();
+					getRols();
+					getClientes();
 				} else if (response.startsWith("error-existe: ")) {
 					var errorMessage = response.substring(13);
 					$("#formUsuarios #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");
@@ -75,7 +77,9 @@ $("#formUsuarios").submit(function(event) {
 					$('#btnRegistroSave').show();
 					$('#btnRegistroEdit').hide();
 					$("#formUsuarios #contrasena").prop("disabled", false);
-					listar_usuarios();				
+					listar_usuarios();
+					getRols();
+					getClientes();				
 				} else if (response.startsWith("error: ")) {
 					var errorMessage = response.substring(7);
 					$("#formUsuarios #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");

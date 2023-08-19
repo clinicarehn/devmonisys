@@ -63,6 +63,7 @@ $("#formClientes").submit(function(event) {
 					$("#formClientes #result").html("<div class='alert alert-success'>Empresa registrada correctamente.</div>");
 					$("#formClientes")[0].reset();
 					listar_clientes();
+					getRol();
 					getImagenHeader();				
 				} else if (response.startsWith("error-existe: ")) {
 					var errorMessage = response.substring(13);
@@ -77,6 +78,7 @@ $("#formClientes").submit(function(event) {
 				if (response === "success") {
 					$("#formClientes #result").html("<div class='alert alert-success'>Empresa modificada correctamente.</div>");
 					listar_clientes();
+					getRol();
 					addValidate();
 					$('#btnRegistroSave').show();
 					$('#btnRegistroEdit').hide();					
@@ -284,7 +286,7 @@ function deleteCliente(clientes_id, empresa) {
                     confirmButtonClass: "btn-primary",
                     timer: 3000,
                 });
-                listar_clientes();
+    			listar_clientes();
             }else if (response.startsWith("error-existe: ")) {
 				var errorMessage = response.substring(13);
                 swal({

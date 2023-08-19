@@ -35,6 +35,7 @@ $("#formClientes").submit(function(event) {
 				if (response === "success") {
 					$("#formClientes #result").html("<div class='alert alert-success'>Empresa modificada correctamente.</div>");
 					getImagenHeader();
+					listar_clientes();
 				} else if (response.startsWith("error: ")) {
 					var errorMessage = response.substring(7);
 					$("#formClientes #result").html("<div class='alert alert-danger text-center'>Error: " + errorMessage + "</div>");

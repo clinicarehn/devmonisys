@@ -50,6 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION['user_id'] = $userData['usuarios_id'];
                         $_SESSION['rol'] = $userRole;
                         $_SESSION['clientes_id'] = $userData['clientes_id'];
+                        $_SESSION['has_expiration'] = $userData['has_expiration'];
+                        $_SESSION['expiration_date'] = $userData['expiration_date'];
 
                         // Agrega un mensaje de éxito al array de respuesta
                         $response['message'] = 'success';                        

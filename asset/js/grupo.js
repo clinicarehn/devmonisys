@@ -115,7 +115,7 @@ var eliminar_grupo_dataTable = function(tbody, table){
 	$(tbody).off("click", "button.table_eliminar");
 	$(tbody).on("click", "button.table_eliminar", function(){
 		var data = table.row( $(this).parents("tr") ).data();
-		$("#formPuestos #result").empty();
+		$("#formTipo #result").empty();
         eliminarGrupo(data.tipos_id, data.nombre);
 	});
 }
@@ -155,7 +155,7 @@ function deleteGrupo(tipos_id, nombre) {
                     confirmButtonClass: "btn-primary",
                     timer: 3000,
                 });
-                listar_correos();
+                listar_grupo();
             }else if (response.startsWith("error-existe: ")) {
 				var errorMessage = response.substring(13);
                 swal({
@@ -188,5 +188,5 @@ function deleteGrupo(tipos_id, nombre) {
 
 // Ocultar el mensaje después de 5 segundos (5000 milisegundos)
 setTimeout(function() {
-    $("#formPuestos #result").empty(); // Eliminar el contenido del elemento
+    $("#formTipo #result").empty(); // Eliminar el contenido del elemento
 }, 5000); // 5000 milisegundos = 5 segundos 

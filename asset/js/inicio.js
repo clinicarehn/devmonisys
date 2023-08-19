@@ -23,7 +23,6 @@ $(document).ready(function() {
         const casasContainer = $("#hostsContainer");
         casasContainer.empty(); // Limpiamos el contenedor de hosts
 
-        // Recorremos cada grupo de hosts (FO y WIFI)
         Object.keys(response).forEach(function(tipo) {
           // Creamos un div para el grupo de hosts
           const grupoHTML = `

@@ -61,8 +61,9 @@ if (isset($_POST['submitType'])) {
                 // Verificar si el cliente ya está registrado
                 $condicionesClientes_ = ["empresa" => $empresa];
                 $resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_);
-        
+
                 if (!empty($resultadoClientes_)) {
+                    
                     $clientes_id = $resultadoClientes_[0]['clientes_id'];
         
                     // Hashear la contraseña antes de guardarla en la base de datos
@@ -74,12 +75,11 @@ if (isset($_POST['submitType'])) {
                     $campoCorrelativoUsuarios = "usuarios_id";
                     $valoresUsuarios = [$database->obtenerCorrelativo($tablaUsuarios, $campoCorrelativoUsuarios), $clientes_id, $nombre_usuario, $email, $hashedPass, $rols, $validar, $fecha_expiracion, $estado, date("y-m-d h:m:s")];
         
-                    //VALIDAMOS SI EL CORREO NO EXISTE
-        // Validamos si el cliente ya existe
+                    //VALIDAMOS SI EL CORREO NO EXISTE                    
                     $tablaUsuariosValidar = "usuarios";
                     $camposUsuariosValidar = ["usuarios_id"];
                     $condicioneUsuariosValidar = ["email" => $email];
-                    $resultadoUsuariosValidar = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes);                    
+                    $resultadoUsuariosValidar = $database->consultarTabla($tablaUsuariosValidar, $camposUsuariosValidar, $condicioneUsuariosValidar);                    
 
                     if (empty($resultadoUsuariosValidar)) {
                         // Insertar el nuevo usuario en la tabla "usuarios"

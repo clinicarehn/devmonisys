@@ -8,8 +8,10 @@ $database = new Database();
 // Inicia la sesión
 session_start();
 $usuario_rol = $_SESSION['rol'];
+$has_expiration = $_SESSION['has_expiration'];
+$expiration_date = $_SESSION['expiration_date'];
 
-if($usuario_rol != "superadmin"){
+if($usuario_rol === "superadmin"){
     $clientes_id = $_POST["clientes_id"];
 }else{
     $clientes_id = $_SESSION['clientes_id'];
@@ -35,12 +37,12 @@ if (isset($_POST['submitType'])) {
         if (empty($resultadoUsersValidar)) {
             // Registramos el Usuario
             $campoCorrelativo = "usuarios_id";
-            $camposUsers = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "estado", "date_create"];
+            $camposUsers = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "estado", "has_expiration", "expiration_date", "date_create"];
 
             // Hashear la contraseña antes de guardarla en la base de datos
             $hashedPass = password_hash($contrasena, PASSWORD_DEFAULT);
 
-            $valores = [$database->obtenerCorrelativo($tablaUsers, $campoCorrelativo), $clientes_id, $nombre, $correo, $hashedPass, $rols, $estado, date("y-m-d h:m:s")];
+            $valores = [$database->obtenerCorrelativo($tablaUsers, $campoCorrelativo), $clientes_id, $nombre, $correo, $hashedPass, $rols, $estado, date("y-m-d h:m:s"), $has_expiration, $expiration_date];
 
             if ($database->insertarRegistro($tablaUsers, $camposUsers, $valores)) {
                 // Cliente registrado correctamente
