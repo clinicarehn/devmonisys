@@ -17,7 +17,7 @@ $data = array();
 $tabla = "usuarios";
 $camposConsulta = ["usuarios_id", "clientes_id", "nombre", "email", "rols_id", "estado"];
 $condiciones = ["clientes_id" => $clientes_id_inicio];
-$orderBy = ""
+$orderBy = "";
 
 if($rol_inicio === "superadmin"){
     $condiciones = ["estado" => "1"];

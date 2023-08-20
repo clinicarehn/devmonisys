@@ -18,7 +18,8 @@ $("#formClientes").submit(function(event) {
     var estado = $("input[name='estado']:checked").val(); 
 	var submitType = $("button[name='submitType']:focus").val(); // Obtener el valor del botón presionado
 	var date_usuario = $("#formClientes #date_usuario").val();
-    var validar = $("input[name='validar']:checked").val(); 
+    var validar = $("input[name='validar']:checked").val();
+	var telefono = $("#formClientes #telefono").val(); 
 
 	if ($("#formClientes #contrasena").prop("disabled")) {
 		console.log("El campo está desactivado");
@@ -49,6 +50,7 @@ $("#formClientes").submit(function(event) {
     formData.append("imagen", archivo);
     formData.append("date_usuario", date_usuario);
     formData.append("validar", validar);	
+	formData.append("telefono", telefono);
 
     // Envío de datos con Ajax a PHP
     $.ajax({
@@ -76,6 +78,7 @@ $("#formClientes").submit(function(event) {
 				}
             } else if (submitType === "modificar") {
 				if (response === "success") {
+					$("#formClientes")[0].reset();
 					$("#formClientes #result").html("<div class='alert alert-success'>Empresa modificada correctamente.</div>");
 					listar_clientes();
 					getRol();
@@ -113,6 +116,7 @@ var listar_clientes = function(){
 		"columns":[
 			{"data":"empresa"},
 			{"data":"rtn"},
+			{"data":"telefono"},
 			{"data":"has_expiration"},
 			{"data":"expiration_date"},
 			{"defaultContent":"<button class='table_editar btn btn-dark'><span class='fa-solid fa-pen-to-square'></span></button>"},
@@ -124,12 +128,13 @@ var listar_clientes = function(){
 		"language": idioma_español,
 		"dom": dom,
 		"columnDefs": [
-		  { width: "20%", targets: 0 },
-		  { width: "20%", targets: 1 },
-		  { width: "20%", targets: 2 },
-		  { width: "20%", targets: 3 },
-		  { width: "20%", targets: 4 },
-		  { width: "20%", targets: 5 }
+		  { width: "24.28%", targets: 0 },
+		  { width: "24.28%", targets: 1 },
+		  { width: "14.28%", targets: 2 },
+		  { width: "14.28%", targets: 3 },
+		  { width: "18.28%", targets: 4 },
+		  { width: "2.28%", targets: 5 },
+		  { width: "2.28%", targets: 6 }
 		],
 		"buttons":[
 			{
@@ -225,8 +230,9 @@ var editar_clientes_dataTable = function(tbody, table){
 				$('#formClientes #empresa').val(valores[0]);
 				$('#formClientes #rtn').val(valores[2]);				
 				$('#formClientes #date_usuario').val(valores[5]);
+				$('#formClientes #telefono').val(valores[6]);
 
-				if(valores[3] === 1){
+				if(valores[3] === "1"){
 					$('#formClientes #activo').attr('checked', true);
 				}else{
 					$('#formClientes #inactivo').attr('checked', true);

@@ -8,6 +8,7 @@ $database = new Database();
 // Datos del nuevo usuario
 $empresa = $_POST["empresa"];
 $rtn = $_POST["rtn"];
+$telefono = $_POST["telefono"];
 
 if (isset($_POST['submitType'])) {
     $submitType = $_POST['submitType'];
@@ -39,7 +40,7 @@ if (isset($_POST['submitType'])) {
 
         //CONSULTAMOS EL RTN DEL CLIENTE
         $tabla = "clientes";
-        $camposClientes = ["clientes_id", "rtn", "image"];
+        $camposClientes = ["clientes_id", "rtn", "telefono", "image"];
         $condicionesClientes_ = ["clientes_id" => $clientes_id];
         $orderBy = "";
         $resultadoClientes_ = $database->consultarTabla($tabla, $camposClientes, $condicionesClientes_, $orderBy);
@@ -50,7 +51,7 @@ if (isset($_POST['submitType'])) {
         }
 
         if($rtn === $rtn_consulta){
-            $datos_actualizar = ['empresa' => $empresa, 'image' => $imageFilename];
+            $datos_actualizar = ['empresa' => $empresa, 'image' => $imageFilename, 'telefono' => $telefono];
             $condiciones_actualizar = ["clientes_id" => $clientes_id];
         
             // Llamar a la función para actualizar los registros

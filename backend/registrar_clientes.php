@@ -16,14 +16,15 @@ $pass = $_POST["pass"];
 $estado = $_POST["estado"];
 $rols = $_POST["rols"];
 $fecha_expiracion = $_POST["date_usuario"];
-$validar = $_POST["validar"];
+$validar = $_POST["validar"];//1. Si 2. No
+$telefono = $_POST["telefono"];
 
 if (isset($_POST['submitType'])) {
     $submitType = $_POST['submitType'];
     
     if ($submitType === "registrar") {//Registramos los valores
         $tabla = "clientes";
-        $campos = ["clientes_id", "empresa", "rtn", "image", "estado", "date_create"];
+        $campos = ["clientes_id", "empresa", "telefono", "rtn", "image", "estado", "date_create"];
         $campoCorrelativo = "clientes_id";        
         
         // Validamos si el cliente ya existe
@@ -55,7 +56,7 @@ if (isset($_POST['submitType'])) {
                 }   
             }        
 
-            $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $rtn, $imageFilename, $estado, date("y-m-d h:m:s")]; // Los valores correspondientes
+            $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $telefono, $rtn, $imageFilename, $estado, date("y-m-d h:m:s")];
 
             // Registramos el Cliente
             if ($database->insertarRegistro($tabla, $campos, $valores)) {

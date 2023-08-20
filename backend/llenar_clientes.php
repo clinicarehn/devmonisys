@@ -14,7 +14,7 @@ $data = array();
 
 //Validamos si existe el host antes de guardarlo
 $tabla = "clientes";
-$camposConsulta = ["clientes_id", "empresa", "rtn", "estado"];
+$camposConsulta = ["clientes_id", "empresa", "rtn", "telefono", "estado"];
 $condicionesCorreos = ["estado" => "1"];
 $orderBy = "";
 $resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos, $orderBy);
@@ -40,7 +40,8 @@ if (!empty($resultadoCorreoValidar)) {
             "rtn" => $row['rtn'],
             "estado" => $row['estado'],
             "has_expiration" => $has_expiration,
-            "expiration_date" => $expiration_date
+            "expiration_date" => $expiration_date,
+            "telefono" => $row['telefono']
         );
     }
 } 

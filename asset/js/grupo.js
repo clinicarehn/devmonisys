@@ -42,7 +42,6 @@ $("#formTipo").submit(function(event) {
     });
   });
 
-
 var listar_grupo = function(){
 	var table_grupo  = $("#dataTableGrupo").DataTable({
 		"destroy":true,

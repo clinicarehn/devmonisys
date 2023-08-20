@@ -27,7 +27,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="rtn" class="form-label">RTN <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="rtn" name="rtn" required data-toggle="tooltip" data-placement="top" title="RTN de la Empresa">
+                            <input type="number" class="form-control" id="rtn" name="rtn" required data-toggle="tooltip" data-placement="top" title="RTN de la Empresa">
                             <div class="input-group-append">				
                                 <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-regular fa-id-card"></i></span>
                             </div>
@@ -43,8 +43,8 @@
                     </div>                                   														
                 </div>
 
-                <div class="form-row visible" id="grupo-user"> 
-                    <div class="col-md-3 mb-3">
+                <div class="form-row visible"> 
+                    <div class="col-md-4 mb-3" id="grupo-user">
                         <label for="nombre_usuario">Nombre Usuario <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required data-toggle="tooltip" data-placement="top" title="Nombre del usuario">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>                       
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-4 mb-3" id="grupo-user">
                         <label for="correo">Correo <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="correo" name="correo" required data-toggle="tooltip" data-placement="top" title="Correo de la Empresa, este se usara para iniciar sesión en el sistema">
@@ -61,8 +61,20 @@
                             <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fas fa-envelope-square"></i></span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2 mb-3">
+                    </div>   
+                    <div class="col-md-4 mb-3">
+                        <label for="telefono">Teléfono <span class="priority">*<span/></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="telefono" name="telefono" required>
+                            <div class="input-group-append">				
+                            <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-phone"></i></span>
+                            </div>
+                        </div>
+                    </div>                                                                                         														
+                </div>
+
+                <div class="form-row visible""> 
+                    <div class="col-md-3 mb-3" id="grupo-user">
                         <label for="contrasena" class="form-label">Contraseña</label>
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="contrasena" name="contrasena" required data-toggle="tooltip" data-placement="top" title="La contraseña no debe ser menor a 8 caracteres y puede ser hasta 20 caracteres" maxlength="20" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
@@ -77,11 +89,8 @@
                             <select class="selectpicker" id="rols" name="rols" required data-size="7" data-live-search="true" title="Rol">			  
                             </select>
                         </div>
-                    </div>                                                                       														
-                </div>
-
-                <div class="form-row visible"> 
-                    <div class="col-md-3 mb-3">
+                    </div> 
+                    <div class="col-md-3 mb-3 visible">
                         <label for="date_usuario">Fecha Expiración <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
                             <input type="date" class="form-control" id="date_usuario" name="date_usuario" value="<?php echo date("Y-m-d"); ?>" required data-toggle="tooltip" data-placement="top" title="Fecha de Expiración">
@@ -91,7 +100,7 @@
                         </div>
                     </div>                       
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3 visible">
                         <label class="form-label" data-toggle="tooltip" data-placement="top" title="Valiar Fecha de Expiración">Validar <span class="priority">*<span/></label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="validar" id="validar_si" value="1">
@@ -105,8 +114,8 @@
                                 No
                             </label>
                         </div>                    
-                    </div>                                                   														
-                </div>                           
+                    </div>                                                                                           														
+                </div>                       
 
                 <div class="form-row">   
                     <div class="col-md-6 mb-3">
@@ -145,6 +154,7 @@
 							<tr>
 								<th>Empresa</th>
 								<th>RTN</th>
+                                <th>Teléfono</th>
                                 <th>Validar</th>
                                 <th>Fecha Expiración</th>
 								<th>Editar</th>

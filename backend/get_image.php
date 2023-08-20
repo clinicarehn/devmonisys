@@ -13,13 +13,15 @@
 
     if (!empty($resultadoClientes)) {
         $image = $resultadoClientes[0]['image'];
-    }    
-
-    $imageVersion = time(); // Generar un valor de tiempo único
-    $imageNombre = isset($image) ? $image."?v=$imageVersion" : "logo.png?v=$imageVersion";
+    } else {
+        $image = "logo.png";
+    }
     
-
+    $imageVersion = time(); // Generar un valor de tiempo único
+    $imageNombre = $image ? $image . "?v=$imageVersion" : "logo.png?v=$imageVersion";
+    
     // Devolver la URL completa de la imagen
     $imageUrl = "../img/logos/" . $imageNombre;
+    
     echo $imageUrl;
 ?>

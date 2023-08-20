@@ -8,7 +8,7 @@ $database = new Database();
 // Inicia la sesión
 session_start();
 $usuario_rol = $_SESSION['rol'];
-$has_expiration = $_SESSION['has_expiration'];
+$has_expiration = $_SESSION['has_expiration'];//1. Si 2. No
 $expiration_date = $_SESSION['expiration_date'];
 
 if($usuario_rol === "superadmin"){
@@ -38,7 +38,7 @@ if (isset($_POST['submitType'])) {
         if (empty($resultadoUsersValidar)) {
             // Registramos el Usuario
             $campoCorrelativo = "usuarios_id";
-            $camposUsers = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "estado", "has_expiration", "expiration_date", "date_create"];
+            $camposUsers = ["usuarios_id", "clientes_id", "nombre", "email", "pass", "rols_id", "estado", "date_create", "has_expiration", "expiration_date"];
 
             // Hashear la contraseña antes de guardarla en la base de datos
             $hashedPass = password_hash($contrasena, PASSWORD_DEFAULT);
@@ -62,7 +62,7 @@ if (isset($_POST['submitType'])) {
         $tablaUsers = "usuarios";
         $camposUsers = ["usuarios_id", "email"];
         $condicionesUsers_ = ["usuarios_id" => $usuarios_id];
-        $orderBy = ""
+        $orderBy = "";
         $resultadoUsers_ = $database->consultarTabla($tablaUsers, $camposUsers, $condicionesUsers_, $orderBy);
         $email_consulta = $resultadoUsers_[0]['email'];
 

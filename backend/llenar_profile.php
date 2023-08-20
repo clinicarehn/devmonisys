@@ -15,7 +15,7 @@ $data = array();
 
 //Validamos si existe el host antes de guardarlo
 $tabla = "clientes";
-$camposConsulta = ["clientes_id", "empresa", "rtn", "estado"];
+$camposConsulta = ["clientes_id", "empresa", "rtn", "telefono", "estado"];
 $condicionesCorreos = ["clientes_id" => $clientes_id];
 $orderBy = "";
 $resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos, $orderBy);
@@ -27,7 +27,8 @@ if (!empty($resultadoCorreoValidar)) {
             "clientes_id" => $row['clientes_id'],
             "empresa" => $row['empresa'],
             "rtn" => $row['rtn'],
-            "estado" => $row['estado']            
+            "estado" => $row['estado'],
+            "telefono" => $row['telefono'] 
         );
     }
 } 

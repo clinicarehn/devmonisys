@@ -27,7 +27,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="rtn" class="form-label">RTN <span class="priority">*<span/></label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="rtn" name="rtn" required data-toggle="tooltip" data-placement="top" title="RTN de la Empresa">
+                            <input type="number" class="form-control" id="rtn" name="rtn" required data-toggle="tooltip" data-placement="top" title="RTN de la Empresa">
                             <div class="input-group-append">				
                                 <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-regular fa-id-card"></i></span>
                             </div>
@@ -41,7 +41,20 @@
                         </div>
                         <div class="invalid-feedback">Por favor, seleccione una imágen en formato png.</div>
                     </div>                                   														
-                </div>                      
+                </div> 
+
+                <div class="form-row">                
+                    <div class="col-md-4 mb-3">
+                        <label for="telefono" class="form-label">Teléfono <span class="priority">*<span/></label>
+                        <div class="input-group mb-3">                            
+                            <input type="text" class="form-control" id="telefono" name="telefono" required>
+                            <div class="input-group-append">				
+                                <span class="input-group-text"><div class="sb-nav-link-icon"></div><i class="fa-solid fa-phone"></i></span>
+                            </div>
+                        </div>
+                    </div>                                  														
+                </div>                 
+                                     
 
                 <div class="form-row">   
                     <div class="col-md-12 mb-3">
@@ -49,8 +62,7 @@
                     </div>                                          														
                 </div>  
 
-                <button type="submit" class="btn btn-primary" id="btnRegistroSave" name="submitType" value="registrar">Registrar</button>
-                <button type="submit" class="btn btn-primary" id="btnRegistroEdit" name="submitType" value="modificar" style="display: none">Modificar</button>
+                <button type="submit" class="btn btn-primary" id="btnRegistroEdit" name="submitType" value="modificar">Modificar</button>
             </form>
         </div>
 		
@@ -62,6 +74,7 @@
 							<tr>
 								<th>Empresa</th>
 								<th>RTN</th>
+                                <th>Teléfono</th>
 								<th>Editar</th>												
 							</tr>
 						</thead>

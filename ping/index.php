@@ -51,7 +51,7 @@ function getCorreoPlantilla($asunto, $mensaje) {
     // Datos de tu empresa
     $nombreEmpresa = 'CLINICARE';
     $direccionEmpresa = 'Col. Monte Carlo, 6-7 , 22 AVENIDA B Casa #17 San Pedro Sula, Cortés';
-    $telefonoEmpresa = '25035517';
+    $telefonoEmpresa = '+504 2503-5517';
     $sitioWebEmpresa = 'https://clinicarehn.com';
     $urlLogoEmpresa = 'https://fayad.clinicarehn.com/vistas/plantilla/img/logo.png'; // Reemplaza con la URL de tu logo
 

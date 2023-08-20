@@ -10,6 +10,7 @@ $("#formClientes").submit(function(event) {
     var clientes_id = $("#formClientes #clientes_id").val();
     var empresa = $("#formClientes #empresa").val();
     var rtn = $("#formClientes #rtn").val(); 
+	var telefono = $("#formClientes #telefono").val(); 
 	var submitType = $("button[name='submitType']:focus").val(); // Obtener el valor del botón presionado
 	
     // Obtener el archivo seleccionado
@@ -21,6 +22,7 @@ $("#formClientes").submit(function(event) {
     formData.append("clientes_id", clientes_id);
     formData.append("empresa", empresa);
     formData.append("rtn", rtn);
+	formData.append("telefono", telefono);
     formData.append("imagen", archivo); // Agregar el archivo al FormData
 
     // Envío de datos con Ajax a PHP
@@ -65,6 +67,7 @@ var listar_clientes = function(){
 		"columns":[
 			{"data":"empresa"},
 			{"data":"rtn"},
+			{"data":"telefono"},
 			{"defaultContent":"<button class='table_editar btn btn-dark'><span class='fa-solid fa-pen-to-square'></span></button>"}
 		],
         "lengthMenu": lengthMenu,
@@ -73,9 +76,10 @@ var listar_clientes = function(){
 		"language": idioma_español,
 		"dom": dom,
 		"columnDefs": [
-		  { width: "64.33%", targets: 0 },
-		  { width: "33.33%", targets: 1 },
-		  { width: "2.33%", targets: 2 }
+		  { width: "45%", targets: 0 },
+		  { width: "28%", targets: 1 },
+		  { width: "25%", targets: 2 },
+		  { width: "2%", targets: 2 }
 		],
 		"buttons":[
 			{
@@ -148,9 +152,10 @@ var editar_clientes_dataTable = function(tbody, table){
 				$('#btnRegistroSave').hide();
 				$('#btnRegistroEdit').show();
 				$('#formClientes #empresa').val(valores[0]);
-				$('#formClientes #rtn').val(valores[2]);				
+				$('#formClientes #rtn').val(valores[2]);
+				$('#formClientes #telefono').val(valores[6]);
 
-				if(valores[3] == 1){
+				if(valores[3] === "1"){
 					$('#formClientes #activo').attr('checked', true);
 				}else{
 					$('#formClientes #inactivo').attr('checked', true);

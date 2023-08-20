@@ -281,7 +281,7 @@ var editar_usuario_dataTable = function(tbody, table){
 				$('#formUsuarios #rols').selectpicker('refresh');
 				$('#formUsuarios #nombre').val(valores[2]);				
 
-				if(valores[5] == 1){
+				if(valores[5] === "1"){
 					$('#formUsuarios #activo').attr('checked', true);
 				}else{
 					$('#formUsuarios #inactivo').attr('checked', true);
