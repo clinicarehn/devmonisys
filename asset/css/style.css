@@ -54,9 +54,9 @@
 }
 
 /* Estilos para el logo en el encabezado */
-.custom-header .logo {
-  width: auto; /* Ajustar el ancho automáticamente */
-  max-height: 60px; /* Altura máxima del logo */
+.custom-header {
+  width: 50px; /* Ajustar el ancho automáticamente */
+  /*max-height: 60px; /* Altura máxima del logo */
 }
 
 

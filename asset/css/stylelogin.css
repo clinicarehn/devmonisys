@@ -32,7 +32,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 10px;
 }
 
 .register-container {
@@ -43,7 +43,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-  margin-top: 80px;
+  /*margin-top: 80px;*/
 }
 
 /* Estilos para imágenes en formularios */
@@ -105,14 +105,15 @@ a {
 /* Estilos para dispositivos móviles */
 @media (max-width: 200px) {
   .container {
-    padding-top: 50px; /* Reduce el espacio superior en dispositivos móviles */
+    padding-top: 10px; /* Reduce el espacio superior en dispositivos móviles */
+    margin:1vh auto;
   }
 
   .login-container,
   .register-container {
     max-width: 100%;
-    margin-top: 40px;
-    padding: 15px; /* Ajusta el espaciado interno */
+    margin-top: 10px; /* Ajusta este valor para controlar la distancia desde la parte superior */
+    padding: 15px; /* Ajusta el espaciado interno */    
   }
 
   .form-group label {
@@ -142,7 +143,7 @@ a {
   position: absolute;
   text-align: center;
   left: 25%;
-  top: 50%;
+  top: 30%;
   transform: translateX(-25%) translateY(-100%);
   font-size: 50px;
   z-index: 1;
