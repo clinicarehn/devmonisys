@@ -20,9 +20,10 @@ $currentDate = date('Y-m-d'); // Obtener la fecha actual en formato 'YYYY-MM-DD'
 $newDate = date('Y-m-d', strtotime($currentDate . ' +7 days')); // Sumar 7 días a la fecha actual
 $fecha_expiracion = $newDate;
 $validar = 1;//1. Si 2. No
+$usuario_sistema = 1;
 
 $tabla = "clientes";
-$campos = ["clientes_id", "empresa", "telefono", "rtn", "estado", "date_create"];
+$campos = ["clientes_id", "empresa", "telefono", "rtn", "estado", "date_create", "usuarios_id"];
 $campoCorrelativo = "clientes_id";        
 
 // Validamos si el cliente ya existe
@@ -33,7 +34,7 @@ $orderBy = "";
 $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes, $orderBy);
 
 if (empty($resultadoClientes)) {
-    $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $telefono, $rtn, $estado, date("y-m-d h:m:s")]; // Los valores correspondientes
+    $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $telefono, $rtn, $estado, date("y-m-d h:m:s"), $usuario_sistema]; // Los valores correspondientes
 
     // Registramos el Cliente
     if ($database->insertarRegistro($tabla, $campos, $valores)) {
@@ -68,7 +69,26 @@ if (empty($resultadoClientes)) {
             }
         }        
 
+        //OBTENER EL NOMBRE DEL ROLL
+        $tablaRols = "rols";
+        $camposRols = ["nombre"];
+        $condicionesRols = ["rols_id" => $rols];
+        $orderBy = "";
+        $resultadoRols = $database->consultarTabla($tablaRols, $camposRols, $condicionesRols, $orderBy);
+        $privilegio_nombre = "";
+
+        if (!empty($resultadoRols)) {
+            $privilegio_nombre = $resultadoRols[0]['nombre'];
+        }
+
+        $urlSistema = "https://monitoring.clinicarehn.com/";
         $destinatarios = array($email => $empresa);
+
+        // Destinatarios en copia oculta (Bcc)
+        $bccDestinatarios = [
+            'edwin.velasquez@clinicarehn.com' => 'CLINICARE',
+            'alexandra.ponce@clinicarehn.com' => 'CLINICARE'
+        ];
 
         $asunto = "¡Bienvenido! Registro exitoso";
         $mensaje = '
@@ -78,19 +98,40 @@ if (empty($resultadoClientes)) {
                 </p>
         
                 <p style="margin-bottom: 10px;">
-                    Es un placer darte la bienvenida a <b>CLINICARE, Monitoring System</b>, tu herramienta de monitoreo confiable. Sabemos lo importante que es para ti tener tus equipos siempre disponibles, por eso estamos aquí para ayudarte.
+                    ¡Bienvenido a CLINICARE con Monitoring System!, tu herramienta de monitoreo confiable. Sabemos lo importante que es para ti tener tus equipos siempre disponibles, por eso estamos aquí para ayudarte.
                 </p>
                 
                 <p style="margin-bottom: 10px;">
                     Con nuestro sistema podrás validar de manera sencilla si tus equipos están activos o inactivos. Te proporcionamos la tranquilidad de estar al tanto de su estado en todo momento. No importa dónde estés, podrás acceder a la información que necesitas.
                 </p>
+
+                <p style="margin-bottom: 10px;">
+                    Te damos las gracias por elegirnos como tu solución de confianza para el monitoreo de tus equipos y/o aplicaciones de manera eficiente. Tu registro en nuestro sistema ha sido exitoso y ahora eres parte de la familia CLINICARE.
+                </p>
+            
+                <ul style="margin-bottom: 12px;">
+                    <li><b>Usuario</b>: '.$email.'</li>
+                    <li><b>Contraseña</b>: '.$pass.'</li>
+                    <li><b>Perfil</b>: '.mb_convert_case(trim($privilegio_nombre), MB_CASE_TITLE, "UTF-8").'</li>
+                    <li><b>Acceso al Sistema</b>: '.$urlSistema.'</li>
+                    <li><b>Prueba Gratis</b>: 7 Días</li>
+                    <li><b>Vencimiento</b>: '.$newDate.'</li>
+                </ul>                
                 
-                <p style="margin-bottom: 12px;">
-                    Si tienes alguna pregunta sobre cómo utilizar nuestra plataforma o cómo interpretar los datos de monitoreo, no dudes en contactarnos. Estamos comprometidos a brindarte el mejor soporte para que aproveches al máximo el sistema de monitoreo.
+                <p style="margin-bottom: 10px;">
+                    Recuerda que la seguridad es una prioridad para nosotros. Por ello, te recomendamos cambiar tu contraseña temporal en tu primera sesión.
+                </p>   
+                
+                <p style="margin-bottom: 10px;">
+                    Si tienes alguna pregunta o necesitas ayuda en cualquier momento, no dudes en ponerte en contacto con nuestro dedicado equipo de soporte. Estamos aquí para proporcionarte la asistencia que necesitas.
                 </p>
                 
                 <p style="margin-bottom: 10px;">
                     ¡Empieza a explorar y a aprovechar al máximo nuestra plataforma de monitoreo! Tus equipos estarán en las mejores manos.
+                </p>
+
+                <p style="margin-bottom: 10px;">
+                    Gracias por unirte a CLINICARE con Monitoring System. Esperamos que esta plataforma sea una herramienta valiosa para tu negocio.
                 </p>
                 
                 <p>
@@ -101,7 +142,7 @@ if (empty($resultadoClientes)) {
                 </p>                
             </div>
         ';
-        $sendEmail->enviarCorreo($destinatarios, $asunto, $mensaje);
+        $sendEmail->enviarCorreo($destinatarios, bccDestinatarios, $asunto, $mensaje);
 
         //Cliente registrado correctamente
         echo "success";

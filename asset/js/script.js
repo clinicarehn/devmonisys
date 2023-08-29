@@ -3,6 +3,7 @@ $(document).ready(function() {
   var menuItems = {
     "superadmin": ["inicio", "clientes", "correos", "hosts", "grupos", "usuarios", "historial", "profile"],
     "admin": ["inicio", "correos", "hosts", "grupos", "usuarios", "historial", "profile"],
+    "reseller": ["inicio", "clientes", "correos", "hosts", "grupos", "usuarios", "historial", "profile"],
     "user": ["inicio"]
   };
 

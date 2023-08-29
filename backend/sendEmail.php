@@ -12,7 +12,7 @@ class sendEmail {
 
     }
 
-    public function enviarCorreo($destinatarios, $asunto, $mensaje) {  
+    public function enviarCorreo($destinatarios, $bccDestinatarios, $asunto, $mensaje) {  
         ini_set('max_execution_time', 300); // Establece el tiempo máximo de ejecución a 300 segundos (5 minutos)
         $mail = new PHPMailer(true);
         $correo_empresa = 'clinicare@clinicarehn.com';
@@ -39,6 +39,11 @@ class sendEmail {
     
             foreach ($destinatarios as $email => $nombre) {
                 $mail->addAddress($email, $nombre);
+
+                // Agregar destinatarios en copia oculta (Bcc)
+                foreach ($bccDestinatarios as $bccEmail => $bccNombre) {
+                    $mail->addBCC($bccEmail, $bccNombre);
+                }                
             
                 // Asunto y cuerpo del correo con la plantilla HTML
                 $mail->Subject = $asunto;

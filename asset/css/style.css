@@ -53,13 +53,6 @@
   text-decoration: none; /* Elimina la subraya del enlace en hover */
 }
 
-/* Estilos para el logo en el encabezado */
-.custom-header {
-  width: 50px; /* Ajustar el ancho automáticamente */
-  /*max-height: 60px; /* Altura máxima del logo */
-}
-
-
 /* Estilos para el logo */
 .logo {
   width: 60px;

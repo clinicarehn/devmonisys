@@ -8,6 +8,8 @@ $database = new Database();
 // Inicia la sesión
 session_start();
 $clientes_id = $_SESSION['clientes_id'];
+$rol_usuario = $_SESSION['rol'];
+$usuario_sistema = $_SESSION['user_id'];
 
 $arreglo = array();
 $data = array();
@@ -15,7 +17,13 @@ $data = array();
 //Validamos si existe el host antes de guardarlo
 $tabla = "clientes";
 $camposConsulta = ["clientes_id", "empresa", "rtn", "telefono", "estado"];
+
 $condicionesCorreos = ["estado" => "1"];
+
+if($rol_usuario === "reseller"){
+    $condicionesCorreos = ["usuarios_id" => $usuario_sistema];
+}
+
 $orderBy = "";
 $resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos, $orderBy);
 
