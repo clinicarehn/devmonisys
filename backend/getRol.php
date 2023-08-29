@@ -22,11 +22,22 @@ if (!empty($resultadoTipos)) {
         $rols_id = $row['rols_id'];
         $nombre = $row['nombre'];
         
-        if($usuario_rol != "superadmin"){
+        if($usuario_rol !== "superadmin"){
             // Verificar si el rol es "superadmin" y si no, omitirlo
             if ($nombre === "superadmin") {
                 continue;
             }
+        }
+
+        if($usuario_rol === "reseller" || $usuario_rol === "admin"){
+            // Verificar si el rol es "superadmin" y si no, omitirlo
+            if ($nombre === "superadmin") {
+                continue;
+            }
+
+            if ($nombre === "reseller") {
+                continue;
+            }            
         }
         
         // Agregar la opción al string de opciones
