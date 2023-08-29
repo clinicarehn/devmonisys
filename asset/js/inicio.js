@@ -54,6 +54,5 @@ $(document).ready(function() {
     });
   }
 
-  // Llamar a obtenerEstados() cada 1 segundo
-  setInterval(obtenerEstados, 1000); 
+  setInterval(obtenerEstados, 300000); // Ejecutar cada 5 minutos (300,000 milisegundos)
 });
