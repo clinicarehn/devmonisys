@@ -4,7 +4,6 @@ require_once "configGenerales.php";
 require_once "Database.php";
 require_once "sendEmail.php";
 
-// Creamos una instancia de la clase Database
 $database = new Database();
 $sendEmail = new sendEmail();
 
