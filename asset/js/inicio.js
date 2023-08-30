@@ -54,5 +54,5 @@ $(document).ready(function() {
     });
   }
 
-  setInterval(obtenerEstados, 300000); // Ejecutar cada 5 minutos (300,000 milisegundos)
+  setInterval(obtenerEstados, 120000); // Ejecutar cada 2 minutos (300,000 milisegundos)
 });
