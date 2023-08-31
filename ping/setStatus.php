@@ -41,7 +41,7 @@ function enviarPing($host) {
 }
 
 // Función para enviar ping y enviar correos electrónicos
-function enviarPing($hostsInfo, $intentosMaximos, $esperaEntreIntentos) {
+function enviarPingSistema($hostsInfo, $intentosMaximos, $esperaEntreIntentos) {
     $database = new Database();
 
     foreach ($hostsInfo as $hostInfo) {
@@ -137,5 +137,5 @@ function checkServicesForIPs($ips, $ports) {
     return $results;
 }
 
-enviarPing($database->getHostsInfo(), 3, 1);
+enviarPingSistema($database->getHostsInfo(), 3, 1);
 ?>
