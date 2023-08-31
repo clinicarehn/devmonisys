@@ -105,8 +105,8 @@ function getCorreoPlantilla($asunto, $mensaje) {
         '.$mensajeCuerpo.'
         <p>Por favor, revisa el servidor para solucionar cualquier problema que pueda estar afectando la conectividad.</p>
         <p>Si necesitas ayuda, no dudes en contactarnos.</p>
-        <p>Saludos,</p>
-        <p><b>'.$nombreEmpresa.'</b></p>
+        <p>Saludos cordiales,</p>
+        <p><b>El Equipo de '.$nombreEmpresa.'</b></p>
       </div>
       '.$pieDePagina.'
     </body>
