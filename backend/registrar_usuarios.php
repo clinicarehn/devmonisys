@@ -62,6 +62,18 @@ if (isset($_POST['submitType'])) {
                     $privilegio_nombre = $resultadoRols[0]['nombre'];
                 }
 
+                //OBTENER EL NOMBRE DE LA EMPRESA
+                $tablaClientes = "clientes";
+                $camposClientes = ["empresa"];
+                $condicionesClientes = ["clientes_id" => $clientes_id];
+                $orderBy = "";
+                $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes, $orderBy);
+                $empresa_nombre = "";
+
+                if (!empty($resultadoClientes)) {
+                    $empresa_nombre = $resultadoClientes[0]['nombre'];
+                }                
+
                 $urlSistema = "https://monitoring.clinicarehn.com/";
                 $destinatarios = array($correo => $nombre);
 
@@ -91,6 +103,7 @@ if (isset($_POST['submitType'])) {
                         </p>
                     
                         <ul style="margin-bottom: 12px;">
+                            <li><b>Empresa</b>: '.$empresa_nombre.'</li>
                             <li><b>Usuario</b>: '.$correo.'</li>
                             <li><b>Contraseña</b>: '.$contrasena.'</li>
                             <li><b>Perfil</b>: '.mb_convert_case(trim($privilegio_nombre), MB_CASE_TITLE, "UTF-8").'</li>

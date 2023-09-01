@@ -19,7 +19,7 @@ class Database {
     }
 
     public function getHostsInfo() {
-        $query = "SELECT h.hosts_id, h.host AS 'ip', h.port AS 'port', h.nombre AS 'host', c.empresa, c.clientes_id, t.nombre AS tipo, h.ubicacion
+        $query = "SELECT h.hosts_id, h.host AS 'ip', h.port AS 'port', h.nombre AS 'host', c.empresa, c.clientes_id, t.nombre AS tipo, h.ubicacion, c.rtn, c.image, c.telefono
             FROM hosts AS h
             INNER JOIN clientes AS c
             ON h.clientes_id = c.clientes_id
@@ -46,7 +46,10 @@ class Database {
                     "port" => $row["port"],
                     "clientes_id" => $row["clientes_id"],
                     "tipo" => $row["tipo"],
-                    "ubicacion" => $row["ubicacion"]
+                    "ubicacion" => $row["ubicacion"],
+                    "rtn" => $row["rtn"],
+                    "image" => $row["image"],
+                    "telefono" => $row["telefono"]                    
                 );
             }
         }
@@ -156,6 +159,7 @@ class Database {
         $query = "SELECT c.empresa, cc.email AS 'email'
             FROM clientes AS c
             INNER JOIN clientes_correo AS cc
+            ON c.clientes_id = cc.clientes_id
             WHERE c.empresa = '$cliente'";
         $result = $this->conexion->query($query);
 

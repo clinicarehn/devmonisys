@@ -47,22 +47,21 @@ function enviarPing($host) {
     return $status === 0 && !preg_grep('/(100% packet loss|unreachable)/i', $output);
 }
 
-function getCorreoPlantilla($asunto, $mensaje) {
+function getCorreoPlantilla($asunto, $mensaje, $datos_empresa) {
     // Datos de tu empresa
-    $nombreEmpresa = 'CLINICARE';
-    $direccionEmpresa = 'Col. Monte Carlo, 6-7 , 22 AVENIDA B Casa #17 San Pedro Sula, Cortés';
-    $telefonoEmpresa = '+504 2503-5517';
-    $sitioWebEmpresa = 'https://clinicarehn.com';
-    $urlLogoEmpresa = 'https://izzycloud.app/vistas/plantilla/img/logo.png'; // Reemplaza con la URL de tu logo
+    $nombreEmpresa = $datos_empresa['empresa'];
+    $telefonoEmpresa = $datos_empresa['telefono'];
+    $rtnEmpresa = $datos_empresa['rtn'];
+    $SERVERURL = "https://monitoring.clinicarehn.com/";
+    $urlLogoEmpresa = $SERVERURL."img/logos/".$datos_empresa['logotipo'];
 
     // Encabezado del correo
     $encabezado = '
         <div style="background-color: #f2f2f2; padding: 20px; text-align: center;">
             <img src="'.$urlLogoEmpresa.'" alt="Logo de '.$nombreEmpresa.'" style="max-width: 70%;">
             <h1>'.$nombreEmpresa.'</h1>
-            <p>'.$direccionEmpresa.'</p>
             <p>Teléfono: '.$telefonoEmpresa.'</p>
-            <p>Sitio Web: '.$sitioWebEmpresa.'</p>
+            <p>RTN: '.$rtnEmpresa.'</p>
         </div>';
 
     // Pie de página del correo
@@ -115,7 +114,7 @@ function getCorreoPlantilla($asunto, $mensaje) {
     return $htmlMensaje;
 }
 
-function enviarCorreo($destinatarios, $asunto, $mensaje, $clienteId) {
+function enviarCorreo($destinatarios, $asunto, $mensaje, $clienteId, $datos_empresa) {
     $database = new Database();
 
     ini_set('max_execution_time', 300); // Establece el tiempo máximo de ejecución a 300 segundos (5 minutos)
@@ -149,7 +148,7 @@ function enviarCorreo($destinatarios, $asunto, $mensaje, $clienteId) {
             $mail->Subject = $asunto;
 
             // Cuerpo del mensaje utilizando la plantilla
-            $htmlMensaje = getCorreoPlantilla($asunto, $mensaje);
+            $htmlMensaje = getCorreoPlantilla($asunto, $mensaje, $datos_empresa);
             $mail->Body = $htmlMensaje;
 
             $host = $mensaje['host'];
@@ -194,7 +193,17 @@ function enviarPingYEnviarCorreo($hostsInfo, $intentosMaximos, $esperaEntreInten
         $ubicacion = $hostInfo['ubicacion'];
         $clienteId = $hostInfo['clientes_id'];
         $cliente = $hostInfo['nombre'];
+        $rtn = $hostInfo['rtn'];
+        $image = $hostInfo['image'];
+        $telefono = $hostInfo['telefono'];
         $hosts_id = $hostInfo['id'];
+
+        $datos_empresa = [
+            "empresa" => strtoupper(trim($cliente)),
+            "logotipo" => $image,
+            "telefono" => $telefono,
+            "rtn" => $rtn		
+        ];        
 
         $intentosFallidos = 0;
 
@@ -263,6 +272,9 @@ function enviarPingYEnviarCorreo($hostsInfo, $intentosMaximos, $esperaEntreInten
                         'port' => $port,
                         'ubicacion' => $ubicacion,
                         'cliente' => $cliente,
+                        'rtn' => $rtn,
+                        'telefono' => $telefono,
+                        'image' => $image,
                         'hosts_id' => $hosts_id
                     );
                 }else{
@@ -272,11 +284,14 @@ function enviarPingYEnviarCorreo($hostsInfo, $intentosMaximos, $esperaEntreInten
                         'port' => $port,
                         'ubicacion' => $ubicacion,
                         'cliente' => $cliente,
+                        'rtn' => $rtn,
+                        'telefono' => $telefono,
+                        'image' => $image,                        
                         'hosts_id' => $hosts_id
                     );                    
                 }
 
-                enviarCorreo($destinatarios, $asunto, $mensaje, $clienteId);
+                enviarCorreo($destinatarios, $asunto, $mensaje, $clienteId, $datos_empresa);
                 // Actualizamos el estado del host a 'down'
                 $database->actualizarEstadoHost($hostInfo['id'], $clienteId, $ip, $port, 'down', $hostInfo['tipo']);
             }

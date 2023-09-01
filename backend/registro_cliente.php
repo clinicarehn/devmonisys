@@ -110,6 +110,7 @@ if (empty($resultadoClientes)) {
                 </p>
             
                 <ul style="margin-bottom: 12px;">
+                    <li><b>Empresa</b>: '.$empresa.'</li>
                     <li><b>Usuario</b>: '.$email.'</li>
                     <li><b>Contraseña</b>: '.$pass.'</li>
                     <li><b>Perfil</b>: '.mb_convert_case(trim($privilegio_nombre), MB_CASE_TITLE, "UTF-8").'</li>
