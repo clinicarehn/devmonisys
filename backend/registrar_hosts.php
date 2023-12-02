@@ -16,6 +16,7 @@ $port = $_POST["port"];
 $ubicacion = $_POST["ubicacion"];
 $tipo = $_POST["tipo"];
 $estado = $_POST["estado"];
+$activo = $_POST["activo"];
 $clientes_id = $_SESSION['clientes_id'];
 
 if (isset($_POST['submitType'])) {
@@ -32,8 +33,8 @@ if (isset($_POST['submitType'])) {
         if (empty($resultadoHostsValidar)) {
             // Registramos el Host
             $campoCorrelativo = "hosts_id";
-            $camposHots = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id", "date_create"];
-            $valores = [$database->obtenerCorrelativo($tablahosts, $campoCorrelativo), $clientes_id, $ip, $port, $host, $ubicacion, 1, $tipo, date("y-m-d h:m:s")]; // Los valores correspondientes
+            $camposHots = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id", "date_create", "activo"];
+            $valores = [$database->obtenerCorrelativo($tablahosts, $campoCorrelativo), $clientes_id, $ip, $port, $host, $ubicacion, 1, $tipo, date("y-m-d h:m:s"), $activo]; // Los valores correspondientes
 
             if ($database->insertarRegistro($tablahosts, $camposHots, $valores)) {
                 // Cliente registrado correctamente
@@ -58,7 +59,7 @@ if (isset($_POST['submitType'])) {
         $port_consulta = $resultadohosts_[0]['port'];
 
         if($ip === $hosts_consulta && $port  === $port_consulta){
-            $datos_actualizar = ['nombre' => $host, 'ubicacion' => $ubicacion, 'estado' => $estado, 'tipos_id' => $tipo];
+            $datos_actualizar = ['nombre' => $host, 'ubicacion' => $ubicacion, 'estado' => $estado, 'tipos_id' => $tipo, 'activo' => $activo];
             $condiciones_actualizar = ["hosts_id" => $hosts_id];
         
             // Llamar a la función para actualizar los registros
@@ -69,7 +70,7 @@ if (isset($_POST['submitType'])) {
             } 
         }else{
             $camposHosts_ = ["hosts_id", "host", "port"];
-            $datos_actualizar = ['nombre' => $host, 'ubicacion' => $ubicacion, 'estado' => $estado, 'host' => $ip, 'port' => $port, 'tipos_id' => $tipo];
+            $datos_actualizar = ['nombre' => $host, 'ubicacion' => $ubicacion, 'estado' => $estado, 'host' => $ip, 'port' => $port, 'tipos_id' => $tipo, 'activo' => $activo];
             $condiciones_actualizar = ["hosts_id" => $hosts_id];
             
             //Validamos si la IP y el port no existen antes de guardar

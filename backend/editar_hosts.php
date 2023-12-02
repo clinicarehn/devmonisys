@@ -8,7 +8,7 @@ $database = new Database();
 $hosts_id = $_POST['hosts_id'];
 
 $tablaClientes = "hosts";
-$camposClientes = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id"];
+$camposClientes = ["hosts_id", "clientes_id", "host", "port", "nombre", "ubicacion", "estado", "tipos_id", 'activo'];
 $condicionesClientes_ = ["hosts_id" => $hosts_id];
 $orderBy = "";
 $resultadoClientes_ = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes_, $orderBy);
@@ -22,6 +22,7 @@ $datos = array(
 	5 => $resultadoClientes_[0]['ubicacion'],
 	6 => $resultadoClientes_[0]['estado'],
 	7 => $resultadoClientes_[0]['tipos_id']	
+	8 => $resultadoClientes_[0]['activo']	
 );
 echo json_encode($datos);
-?>	
+?>

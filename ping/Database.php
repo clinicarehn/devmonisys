@@ -2,9 +2,9 @@
 
 class Database {
     private $host = 'localhost';
-    private $usuario = 'root';
-    private $contrasena = 'Edwin82003%';
-    private $base_datos = 'monitoring';
+    private $usuario = 'clinicarehn_clinicare';
+    private $contrasena = 'Clin1c@r32022#';
+    private $base_datos = 'clinicarehn_clientes_monisys';
     private $conexion;
 
     public function __construct() {
@@ -24,7 +24,8 @@ class Database {
             INNER JOIN clientes AS c
             ON h.clientes_id = c.clientes_id
             INNER JOIN tipos AS t
-            ON h.tipos_id = t.tipos_id";
+            ON h.tipos_id = t.tipos_id
+            WHERE h.activo = 1";
     
         $result = $this->conexion->query($query);
     

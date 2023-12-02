@@ -25,7 +25,7 @@ if($rol_usuario === "reseller"){
 }
 
 $orderBy = "";
-$resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos, $orderBy);
+$resultadoCorreoValidar = $database->consultarTabla($tabla, $camposConsulta, $condicionesCorreos);
 
 if (!empty($resultadoCorreoValidar)) {
     // Llenar el array $data con los resultados
@@ -35,7 +35,7 @@ if (!empty($resultadoCorreoValidar)) {
         $camposConsulta = ["has_expiration", "expiration_date"];
         $condiciones = ["clientes_id" => $row['clientes_id']];
         $orderBy = "";
-        $resultadoUsuarios = $database->consultarTabla($tabla, $camposConsulta, $condiciones, $orderBy);
+        $resultadoUsuarios = $database->consultarTabla($tabla, $camposConsulta, $condiciones);
 
         if (!empty($resultadoUsuarios)) {
             $has_expiration = $resultadoUsuarios[0]['has_expiration'] == 1 ? 'Sí' : 'No';

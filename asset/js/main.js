@@ -1,5 +1,5 @@
 window.onload = function() {
-    getImagenHeader();
+    //getImagenHeader();
 };
 
 function getImagenHeader(){

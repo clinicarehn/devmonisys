@@ -2,9 +2,9 @@
 
 class Database {
   private $host = 'localhost';
-  private $usuario = 'root';
-  private $contrasena = 'Edwin82003%';
-  private $base_datos = 'monitoring';
+  private $usuario = 'clinicarehn_clinicare';
+  private $contrasena = 'Clin1c@r32022#';
+  private $base_datos = 'clinicarehn_clientes_monisys';
   private $conexion;  
 
   public function __construct() {
@@ -28,7 +28,7 @@ class Database {
         FROM hosts AS h
         INNER JOIN tipos AS t
         ON h.tipos_id = t.tipos_id
-        WHERE clientes_id = '$clientes_id'";
+        WHERE clientes_id = '$clientes_id' AND h.activo = 1";
     //AQUI HACEMOS EL WHERE PARA SOLO MOSTRAR LOS DATOS DEL CLIENTE QUE INICIO SESION
     
     $result = $this->conexion->query($query);

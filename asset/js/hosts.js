@@ -184,6 +184,12 @@ var editar_hosts_dataTable = function(tbody, table){
 				}else{
 					$('#formHosts #inactivo').attr('checked', true);
 				}
+
+				if(valores[8] == 1){
+					$('#formHosts #activo_si').attr('checked', true);
+				}else{
+					$('#formHosts #activo_no').attr('checked', true);
+				}				
 			}
 		});
 	});
