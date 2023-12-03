@@ -21,7 +21,7 @@ $datos = array(
 	4 => $resultadoClientes_[0]['nombre'],
 	5 => $resultadoClientes_[0]['ubicacion'],
 	6 => $resultadoClientes_[0]['estado'],
-	7 => $resultadoClientes_[0]['tipos_id']	
+	7 => $resultadoClientes_[0]['tipos_id'],
 	8 => $resultadoClientes_[0]['activo']	
 );
 echo json_encode($datos);

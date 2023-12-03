@@ -61,5 +61,7 @@ $arreglo = array(
     "data" => $data
 );
 
+var_dump($arreglo);
+
 echo json_encode($arreglo);
 ?>
