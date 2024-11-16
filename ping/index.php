@@ -52,7 +52,7 @@ function getCorreoPlantilla($asunto, $mensaje, $datos_empresa) {
     $nombreEmpresa = $datos_empresa['empresa'];
     $telefonoEmpresa = $datos_empresa['telefono'];
     $rtnEmpresa = $datos_empresa['rtn'];
-    $SERVERURL = "https://monitoring.clinicarehn.com/";
+    $SERVERURL = "https://monisys.app/";
     $urlLogoEmpresa = $SERVERURL."img/logos/".$datos_empresa['logotipo'];
 
     // Encabezado del correo
@@ -119,7 +119,7 @@ function enviarCorreo($destinatarios, $asunto, $mensaje, $clienteId, $datos_empr
 
     ini_set('max_execution_time', 300); // Establece el tiempo máximo de ejecución a 300 segundos (5 minutos)
     $mail = new PHPMailer(true);
-    $correo_empresa = 'clinicare@clinicarehn.com';
+    $correo_empresa = 'notificaciones@clinicarehn.com';
     $pass_empresa = 'Cl1nicare2021#';
     $de_empresa = 'CLINICARE';
     $smtp = 'smtp.office365.com';

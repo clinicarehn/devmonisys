@@ -1,25 +1,30 @@
 <?php
 
 class Database {
-  private $host = 'localhost';
-  private $usuario = 'clinicarehn_clinicare';
-  private $contrasena = 'Clin1c@r32022#';
-  private $base_datos = 'clinicarehn_clientes_monisys';
-  private $conexion;  
+    private $host = 'localhost';
+    private $usuario = 'clinicarehn_clinicare';
+    private $contrasena = 'Clin1c@r32022#';
+    private $base_datos = 'clinicarehn_clientes_monisys';
+    private $conexion;  
 
-  public function __construct() {
-    $this->conexion = new mysqli($this->host, $this->usuario, $this->contrasena, $this->base_datos);
-    if ($this->conexion->connect_error) {
-      die("Error de conexión: " . $this->conexion->connect_error);
+    public function __construct() {
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->contrasena, $this->base_datos);
+        if ($this->conexion->connect_error) {
+            die("Error de conexión: " . $this->conexion->connect_error);
+        }
     }
-  }
 
-  public function __destruct() {
-    $this->conexion->close();
-  }
+    public function __destruct() {
+        if ($this->conexion) {
+            if (!$this->conexion->close()) {
+                // Manejar el error al cerrar la conexión
+                echo "Error al cerrar la conexión: " . $this->conexion->error;
+            }
+        }
+    }
   
-  public function obtenerEstados($clientes_id) {
-    $query = "SELECT h.hosts_id, h.nombre, 
+    public function obtenerEstados($clientes_id) {
+        $query = "SELECT h.hosts_id, h.nombre, 
         CASE
             WHEN h.estado = 1 THEN 'up'    
             ELSE 'down'
@@ -29,44 +34,44 @@ class Database {
         INNER JOIN tipos AS t
         ON h.tipos_id = t.tipos_id
         WHERE clientes_id = '$clientes_id' AND h.activo = 1";
-    //AQUI HACEMOS EL WHERE PARA SOLO MOSTRAR LOS DATOS DEL CLIENTE QUE INICIO SESION
-    
-    $result = $this->conexion->query($query);
-    $hosts = array();
+        //AQUI HACEMOS EL WHERE PARA SOLO MOSTRAR LOS DATOS DEL CLIENTE QUE INICIO SESION
 
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        $hosts[] = array(
-          "id" => $row["hosts_id"],
-          "host" => $row["nombre"],
-          "nombre" => $row["nombre"],
-          "estado" => $row["estado"],
-          "tipo" => $row["tipo"]
-        );
-      }
+        $result = $this->conexion->query($query);
+        $hosts = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+            $hosts[] = array(
+                "id" => $row["hosts_id"],
+                "host" => $row["nombre"],
+                "nombre" => $row["nombre"],
+                "estado" => $row["estado"],
+                "tipo" => $row["tipo"]
+            );
+            }
+        }
+
+        return $hosts;
     }
 
-    return $hosts;
-  }
+    public function obtenerCorrelativo($tabla, $campoCorrelativo) {
+        $tabla = $this->conexion->real_escape_string($tabla);
+        $campoCorrelativo = $this->conexion->real_escape_string($campoCorrelativo);
 
-  public function obtenerCorrelativo($tabla, $campoCorrelativo) {
-    $tabla = $this->conexion->real_escape_string($tabla);
-    $campoCorrelativo = $this->conexion->real_escape_string($campoCorrelativo);
+        $query = "SELECT MAX($campoCorrelativo) AS max_correlativo FROM $tabla";
+        $result = $this->conexion->query($query);
 
-    $query = "SELECT MAX($campoCorrelativo) AS max_correlativo FROM $tabla";
-    $result = $this->conexion->query($query);
-
-    if ($result !== false && $result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        $correlativo = (int)$row['max_correlativo'] + 1;
-        return $correlativo;
-    } else {
-        // Si no se encuentra ningún registro, se asume que el correlativo empieza en 1
-        return 1;
+        if ($result !== false && $result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            $correlativo = (int)$row['max_correlativo'] + 1;
+            return $correlativo;
+        } else {
+            // Si no se encuentra ningún registro, se asume que el correlativo empieza en 1
+            return 1;
+        }
     }
-  }
 
-  public function consultarTabla($tabla, $campos = array(), $condiciones = array(), $orderBy = '') {
+    public function consultarTabla($tabla, $campos = array(), $condiciones = array(), $orderBy = '') {
         $tabla = $this->conexion->real_escape_string($tabla);
 
         // Construir la consulta SELECT básica
@@ -113,62 +118,62 @@ class Database {
         return $resultados;
     }
 
-  public function insertarRegistro($tabla, $campos, $valores) {
-    $tabla = $this->conexion->real_escape_string($tabla);
+    public function insertarRegistro($tabla, $campos, $valores) {
+        $tabla = $this->conexion->real_escape_string($tabla);
 
-    // Escapar y formatear los campos para la consulta
-    $campos = implode(",", array_map([$this->conexion, 'real_escape_string'], $campos));
+        // Escapar y formatear los campos para la consulta
+        $campos = implode(",", array_map([$this->conexion, 'real_escape_string'], $campos));
 
-    // Escapar y formatear los valores para la consulta
-    $valores = "'" . implode("','", array_map([$this->conexion, 'real_escape_string'], $valores)) . "'";
+        // Escapar y formatear los valores para la consulta
+        $valores = "'" . implode("','", array_map([$this->conexion, 'real_escape_string'], $valores)) . "'";
 
-    // Construir la consulta INSERT
-    $query = "INSERT INTO $tabla ($campos) VALUES ($valores)";
+        // Construir la consulta INSERT
+        $query = "INSERT INTO $tabla ($campos) VALUES ($valores)";
 
-    // Ejecutar la consulta
-    if ($this->conexion->query($query) === TRUE) {
-        return true;
-    } else {
-        // Si hay un error en la consulta, imprime el mensaje de error
-        echo "Error en la consulta: " . $this->conexion->error;
-        return false;
+        // Ejecutar la consulta
+        if ($this->conexion->query($query) === TRUE) {
+            return true;
+        } else {
+            // Si hay un error en la consulta, imprime el mensaje de error
+            echo "Error en la consulta: " . $this->conexion->error;
+            return false;
+        }
     }
-  }
 
-  public function actualizarRegistros($tabla, $datos, $condiciones = array()) {
-    $tabla = $this->conexion->real_escape_string($tabla);
+    public function actualizarRegistros($tabla, $datos, $condiciones = array()) {
+        $tabla = $this->conexion->real_escape_string($tabla);
 
-    // Construir la consulta UPDATE
-    $query = "UPDATE $tabla SET ";
+        // Construir la consulta UPDATE
+        $query = "UPDATE $tabla SET ";
 
-    $actualizaciones = array();
-    foreach ($datos as $campo => $valor) {
-        $campo = $this->conexion->real_escape_string($campo);
-        $valor = $this->conexion->real_escape_string($valor);
-        $actualizaciones[] = "$campo = '$valor'";
-    }
-    $query .= implode(", ", $actualizaciones);
-
-    // Si se especifican condiciones, agregarlas a la consulta
-    if (!empty($condiciones)) {
-        $clauses = array();
-        foreach ($condiciones as $campo => $valor) {
+        $actualizaciones = array();
+        foreach ($datos as $campo => $valor) {
             $campo = $this->conexion->real_escape_string($campo);
             $valor = $this->conexion->real_escape_string($valor);
-            $clauses[] = "$campo = '$valor'";
+            $actualizaciones[] = "$campo = '$valor'";
         }
-        $query .= " WHERE " . implode(" AND ", $clauses); // Concatenar las condiciones usando AND
+        $query .= implode(", ", $actualizaciones);
+
+        // Si se especifican condiciones, agregarlas a la consulta
+        if (!empty($condiciones)) {
+            $clauses = array();
+            foreach ($condiciones as $campo => $valor) {
+                $campo = $this->conexion->real_escape_string($campo);
+                $valor = $this->conexion->real_escape_string($valor);
+                $clauses[] = "$campo = '$valor'";
+            }
+            $query .= " WHERE " . implode(" AND ", $clauses); // Concatenar las condiciones usando AND
+        }
+
+        // Ejecutar la consulta
+        if ($this->conexion->query($query) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    // Ejecutar la consulta
-    if ($this->conexion->query($query) === TRUE) {
-        return true;
-    } else {
-        return false;
-    }
-  }
-
-  /*
+    /*
     // Datos a actualizar
     $datos_actualizar = array(
         'nombre' => 'Nuevo Nombre',
@@ -187,45 +192,46 @@ class Database {
     } else {
         echo "Error al actualizar registros.";
     }   
-  */
+    */
 
-  public function eliminarRegistros($tabla, $condiciones = array()) {
-    $tabla = $this->conexion->real_escape_string($tabla);
+    public function eliminarRegistros($tabla, $condiciones = array()) {
+        $tabla = $this->conexion->real_escape_string($tabla);
 
-    // Construir la consulta DELETE
-    $query = "DELETE FROM $tabla";
+        // Construir la consulta DELETE
+        $query = "DELETE FROM $tabla";
 
-    // Si se especifican condiciones, agregarlas a la consulta
-    if (!empty($condiciones)) {
-        $clauses = array();
-        foreach ($condiciones as $campo => $valor) {
-            $campo = $this->conexion->real_escape_string($campo);
-            $valor = $this->conexion->real_escape_string($valor);
-            $clauses[] = "$campo = '$valor'";
+        // Si se especifican condiciones, agregarlas a la consulta
+        if (!empty($condiciones)) {
+            $clauses = array();
+            foreach ($condiciones as $campo => $valor) {
+                $campo = $this->conexion->real_escape_string($campo);
+                $valor = $this->conexion->real_escape_string($valor);
+                $clauses[] = "$campo = '$valor'";
+            }
+            $query .= " WHERE " . implode(" AND ", $clauses); // Concatenar las condiciones usando AND
         }
-        $query .= " WHERE " . implode(" AND ", $clauses); // Concatenar las condiciones usando AND
+
+        // Ejecutar la consulta
+        if ($this->conexion->query($query) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    // Ejecutar la consulta
-    if ($this->conexion->query($query) === TRUE) {
-        return true;
-    } else {
-        return false;
-    }
-  }
+    /*
+        // Condiciones para seleccionar los registros que se eliminarán
+        $condiciones_eliminar = array(
+            'activo = 0' // Eliminar los usuarios inactivos
+        );
 
-  /*
-      // Condiciones para seleccionar los registros que se eliminarán
-      $condiciones_eliminar = array(
-          'activo = 0' // Eliminar los usuarios inactivos
-      );
-
-      // Llamar a la función para eliminar los registros
-      if ($database->eliminarRegistros('usuarios', $condiciones_eliminar)) {
-          echo "Registros eliminados correctamente.";
-      } else {
-          echo "Error al eliminar registros.";
-      }  
-  */
+        // Llamar a la función para eliminar los registros
+        if ($database->eliminarRegistros('usuarios', $condiciones_eliminar)) {
+            echo "Registros eliminados correctamente.";
+        } else {
+            echo "Error al eliminar registros.";
+        }  
+    */
 }
+
 ?>

@@ -23,7 +23,7 @@ if (empty($resultadoUsuarios)) {
     if ($database->eliminarRegistros($tabla, $condiciones_eliminar)) {
         echo "success"; // Envía 'success' si la eliminación fue exitosa
     } else {
-        echo "error: Error al modificar el cliente"; // Envía 'error' si hubo un error en la eliminación
+        echo "error: Error al eliminar el cliente"; // Envía 'error' si hubo un error en la eliminación
     }
 }else{
     echo "error-existe: El cliente $empresa, cuenta con información, no se puede eliminar"; // Envía 'existe' si registro cuenta con información
