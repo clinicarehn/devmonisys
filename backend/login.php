@@ -119,4 +119,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Devuelve la respuesta como JSON
 echo json_encode($response);
-?>

@@ -16,7 +16,7 @@ $port = $_POST["port"];
 $ubicacion = $_POST["ubicacion"];
 $tipo = $_POST["tipo"];
 $estado = $_POST["estado"];
-$activo = $_POST["activo"];
+$activo = isset($_POST["activo"]) ? $_POST["activo"] : 1; // Usa un valor predeterminado si no está presente
 $clientes_id = $_SESSION['clientes_id'];
 
 if (isset($_POST['submitType'])) {

@@ -94,7 +94,7 @@
         <div class="register-container" style="display: none">
             <!-- Logo de la empresa -->
             <div class="logo">
-                <img src="img/logo.png" alt="CLINICARE" class="logo">
+                <img src="img/logo.png" alt="CLINICARE"  height="40%" width="60%">
             </div>
 
             <!-- Título del formulario -->

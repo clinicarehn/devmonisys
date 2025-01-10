@@ -28,11 +28,11 @@ if (isset($_POST['submitType'])) {
     
     if ($submitType === "registrar") {//Registramos los valores
         $tabla = "clientes";
-        $campos = ["clientes_id", "empresa", "telefono", "rtn", "image", "estado", "date_create", "usuarios_id"];
+        $campos = ["clientes_id", "empresa", "telefono", "rtn", "image", "estado", "usuarios_id", "date_create"];
         $campoCorrelativo = "clientes_id";        
         
         // Validamos si el cliente ya existe
-        $tablaClientes = "clientes";
+        $tablaClientes = "clientes";    
         $camposClientes = ["clientes_id"];
         $condicionesClientes = ["rtn" => $rtn];
         $orderBy = "";
@@ -252,4 +252,3 @@ if (isset($_POST['submitType'])) {
         $database->actualizarRegistros($tabla, $datos_actualizar, $condiciones_actualizar);
     }
 }
-?>

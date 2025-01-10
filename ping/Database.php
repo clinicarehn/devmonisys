@@ -3,9 +3,9 @@
 class Database
 {
     private $host = 'localhost';
-    private $usuario = 'clinicarehn_clinicare';
-    private $contrasena = 'Clin1c@r32022#';
-    private $base_datos = 'clinicarehn_monisys';
+    private $usuario = 'esmultiservicios_root';
+    private $contrasena = 'o8lXA0gtIO$@';
+    private $base_datos = 'esmultiservicios_monisys';
     private $conexion;
 
     public function __construct()

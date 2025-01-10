@@ -23,7 +23,7 @@ $validar = 1;//1. Si 2. No
 $usuario_sistema = 1;
 
 $tabla = "clientes";
-$campos = ["clientes_id", "empresa", "telefono", "rtn", "estado", "date_create", "usuarios_id"];
+$campos = ["clientes_id", "empresa", "telefono", "rtn", "image", "estado", "date_create", "usuarios_id"];
 $campoCorrelativo = "clientes_id";        
 
 // Validamos si el cliente ya existe
@@ -34,7 +34,7 @@ $orderBy = "";
 $resultadoClientes = $database->consultarTabla($tablaClientes, $camposClientes, $condicionesClientes, $orderBy);
 
 if (empty($resultadoClientes)) {
-    $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $telefono, $rtn, $estado, date("y-m-d h:m:s"), $usuario_sistema]; // Los valores correspondientes
+    $valores = [$database->obtenerCorrelativo($tabla, $campoCorrelativo), $empresa, $telefono, $rtn, "", $estado, date("y-m-d h:m:s"), $usuario_sistema]; // Los valores correspondientes
 
     // Registramos el Cliente
     if ($database->insertarRegistro($tabla, $campos, $valores)) {
@@ -143,7 +143,8 @@ if (empty($resultadoClientes)) {
                 </p>                
             </div>
         ';
-        $sendEmail->enviarCorreo($destinatarios, bccDestinatarios, $asunto, $mensaje);
+        
+        $sendEmail->enviarCorreo($destinatarios, $bccDestinatarios, $asunto, $mensaje);
 
         //Cliente registrado correctamente
         echo "success";
@@ -153,4 +154,3 @@ if (empty($resultadoClientes)) {
 } else {
     echo "error-existe: El cliente $empresa con el RTN $rtn, ya está registrado, por favor inicie la sesión o restablezca su contraseña";
 }
-?>
